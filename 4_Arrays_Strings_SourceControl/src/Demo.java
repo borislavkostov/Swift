@@ -11,7 +11,7 @@ public class Demo {
 		 * System.out.println(Arrays.binarySearch(heights, 3));
 		 */
 		// MultyDimensional Arrays
-		double[][] grades = new double[2][3];
+/*		double[][] grades = new double[2][3];
 		grades[0][0] = 3.50;
 		grades[1][0] = 5.40;
 		grades[1][1] = 5.1;
@@ -20,6 +20,7 @@ public class Demo {
 				System.out.print(grades[studentIndex][j] + " ");
 			}
 			System.out.println();
-		}
+		}*/
+		
 	}
 }
