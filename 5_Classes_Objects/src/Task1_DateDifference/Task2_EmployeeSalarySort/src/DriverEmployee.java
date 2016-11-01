@@ -1,5 +1,6 @@
 package Task1_DateDifference.Task2_EmployeeSalarySort.src;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class DriverEmployee {
@@ -12,6 +13,7 @@ public class DriverEmployee {
 			String line = input.nextLine();
 			employee[i]=Employee.lineEnter(line);
 		}
+		Arrays.sort(employee);
 		for (int i = 0; i < employee.length; i++) {
 			System.out.println(employee[i].toString());
 		}
