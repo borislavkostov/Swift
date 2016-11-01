@@ -7,16 +7,17 @@ public class DriverEmployee {
 	public static void main(String args[]) {
 		Scanner input = new Scanner(System.in);
 		int n = input.nextInt();
-		input.nextLine();//This need to be here because there is problem to read next line on my next String
+		input.nextLine();// This need to be here because there is problem to
+							// read next line on my next String
 		Employee[] employee = new Employee[n];
-		for (int i =0; i < n; i++) {
+		for (int i = 0; i < n; i++) {
 			String line = input.nextLine();
-			employee[i]=Employee.lineEnter(line);
+			employee[i] = Employee.lineEnter(line);
 		}
-		Arrays.sort(employee);
-		for (int i = 0; i < employee.length; i++) {
+		Employee.sortArray(employee);
+		for (int i = 0; i < 3; i++) {
 			System.out.println(employee[i].toString());
 		}
-		
+
 	}
 }
