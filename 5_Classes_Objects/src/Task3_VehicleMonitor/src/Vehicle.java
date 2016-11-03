@@ -47,7 +47,7 @@ public class Vehicle {
 		this.licenseNo = licenseNo;
 	}
 	public double calculateTripPrice(double fuelPrice) {
-		return fuelPrice * (distance / fuelConsumation);
+		return fuelPrice * ((fuelConsumation/100)*distance);
 	}
 	public double getDistance() {
 		return distance;
