@@ -9,6 +9,7 @@ public class PersonDriver {
 		Person pr[] = new Person[n];
 		for (int i = 0; i < pr.length; i++) {
 			line = input.nextLine();
+			pr[i]=new Person();
 			pr[i].lineReader(line);
 		}
 		for (int i = 0; i < pr.length; i++) {
