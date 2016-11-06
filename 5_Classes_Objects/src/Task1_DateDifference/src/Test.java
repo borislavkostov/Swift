@@ -1,17 +1,28 @@
 package Task1_DateDifference.src;
 
+import java.util.Scanner;
+
 public class Test {
 	public static void main(String args[]){
-		SwiftDate d = new SwiftDate();
+		
 		SwiftDate t = new SwiftDate();
-		d.setDay(26);
-		d.setMonth(9);
-		d.setYear(2016);
-		t.setDay(3);
-		t.setMonth(3);
-		t.setYear(1878);
-		System.out.println(t.getDaysDifference(d));
+		SwiftDate d = new SwiftDate();
+		Scanner input = new Scanner(System.in);
+		String line = input.nextLine();
+		t=setDate(line);
+		String line2 = input.nextLine();
+		d=setDate(line2);
 		d.printInfo();
 		t.printInfo();
+		System.out.println(d.getDaysDifference(t));
+		
+	}
+	public static SwiftDate setDate(String line){
+		String str[] = line.trim().split(" ");
+		SwiftDate d = new SwiftDate();
+		d.setDay(Integer.parseInt(str[2]));
+		d.setMonth(Integer.parseInt(str[1]));
+		d.setYear(Integer.parseInt(str[0]));
+		return d;
 	}
 }
