@@ -67,11 +67,11 @@ public class SwiftDate {
 	}
 	public void printInfo() {
 		if (this.isLeapYear() == true) {
-			System.out.printf("%d %d %d %d century.It's leap year%n",
+			System.out.printf("%04d %02d %02d %d century.It's leap year%n",
 					this.getYear(), this.getMonth(), this.getDay(),
 					this.getCentury());
 		} else {
-			System.out.printf("%d %d %d %d century.%n", this.getYear(),
+			System.out.printf("%04d %02d %02d %d century.%n", this.getYear(),
 					this.getMonth(), this.getDay(), this.getCentury());
 		}
 	}
