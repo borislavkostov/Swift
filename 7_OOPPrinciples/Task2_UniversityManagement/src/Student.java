@@ -9,6 +9,9 @@ public class Student extends Person {
 
 	@Override
 	public void work(Person obj[]) {
+		if(this.getTolerance()>50){
+			University.setBalance(University.getBalance()+10);
+		}
 		for (int i = 0; i < obj.length; i++) {
 			if (obj[i] instanceof Student) {
 				obj[i].setTolerance(obj[i].getTolerance() + 2);

@@ -1,12 +1,12 @@
 
 public class University {
-	static int balance = 500;
+	static double balance = 500;
 
-	public static int getBalance() {
+	public static double getBalance() {
 		return balance;
 	}
 
-	public static void setBalance(int balance) {
+	public static void setBalance(double balance) {
 		University.balance = balance;
 	}
 }
