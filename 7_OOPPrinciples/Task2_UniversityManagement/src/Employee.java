@@ -2,7 +2,7 @@
 public abstract class Employee extends Person {
 	private double sallaryPerHour;
 
-	abstract int work();
+	abstract void work(Person[] obj);
 
 	public Employee(String name, String phoneNum) {
 		super(name, phoneNum);

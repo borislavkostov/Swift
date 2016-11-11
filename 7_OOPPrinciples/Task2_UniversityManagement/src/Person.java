@@ -1,14 +1,14 @@
 
-public class Person {
+public abstract class Person {
 	private String firstName;
 	private String phoneNum;
-	private static int tolerance = 20;
-
+	private int tolerance = 20;
+	
 	public Person(String firstName, String phoneNum) {
 		this.firstName = firstName;
 		this.phoneNum = phoneNum;
 	}
-
+	abstract void work(Person[] obj);
 	public int getTolerance() {
 		return tolerance;
 	}

@@ -6,8 +6,15 @@ public class MaintenanceEmployee extends Employee {
 	}
 
 	@Override
-	int work() {
-		// TODO Auto-generated method stub
-		return 0;
+	public void work(Person obj[]) {
+		for (int i = 0; i < obj.length; i++) {
+			if (obj[i] instanceof Student) {
+				obj[i].setTolerance(obj[i].getTolerance() + 2);
+			} else if (obj[i] instanceof Teacher) {
+				obj[i].setTolerance(obj[i].getTolerance() + 2);
+			} else if (obj[i] instanceof AdministrationEmployee) {
+				obj[i].setTolerance(obj[i].getTolerance() + 2);
+			}
+		}
 	}
 }
