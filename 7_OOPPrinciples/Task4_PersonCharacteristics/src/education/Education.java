@@ -9,12 +9,18 @@ public abstract class Education {
 	private LocalDate enrollmentDate;
 	private LocalDate graduationDate;
 	private String institutionName;
+	
 	abstract public void getDegree();
+
 	abstract public void gotGraduated();
+	public Education() {
+
+	}
+
 	public double getFinalGrade() {
 		return finalGrade;
 	}
-	
+
 	public void setFinalGrade(double finalGrade) {
 		this.finalGrade = finalGrade;
 	}
