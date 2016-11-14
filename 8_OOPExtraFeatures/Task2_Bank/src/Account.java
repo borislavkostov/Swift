@@ -7,7 +7,7 @@ public class Account {
 
 	public Account(String iBAN, Owner owner, double balance, double montlyInterestRate) {
 		IBAN = iBAN;
-		this.owner = owner;
+		this.setOwner(owner);
 		this.balance = balance;
 		this.montlyInterestRate = montlyInterestRate;
 	}
@@ -38,5 +38,13 @@ public class Account {
 
 	public void setMontlyInterestRate(double montlyInterestRate) {
 		this.montlyInterestRate = montlyInterestRate;
+	}
+
+	public Owner getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Owner owner) {
+		this.owner = owner;
 	}
 }
