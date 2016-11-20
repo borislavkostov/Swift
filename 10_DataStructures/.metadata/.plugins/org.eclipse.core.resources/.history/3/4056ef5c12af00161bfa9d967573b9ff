@@ -1,0 +1,13 @@
+import java.util.Scanner;
+import java.util.TreeSet;
+
+public class Task2_CommonSubset {
+	public static void main(String args[]){
+		Scanner input = new Scanner(System.in);
+		int n;
+		int m;
+		TreeSet<Integer> firsSet = new TreeSet<>();
+		TreeSet<Integer> secondSet = new TreeSet<>();
+		
+	}
+}

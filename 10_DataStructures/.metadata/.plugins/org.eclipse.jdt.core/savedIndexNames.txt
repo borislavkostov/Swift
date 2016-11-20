@@ -1,0 +1,3 @@
+INDEX VERSION 1.129+/home/templars1914/workspace/SwiftAcademyHomeworks/10_DataStructures/.metadata/.plugins/org.eclipse.jdt.core
+906261999.index
+1725845624.index
