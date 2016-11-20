@@ -27,11 +27,11 @@ public class Task2_CommonSubset {
 				}
 			}
 		}
-		if (compare.size()!=0){
+		if (compare.size() != 0) {
 			for (Integer integer : compare) {
-				System.out.print(integer+" ");
+				System.out.print(integer + " ");
 			}
-		}else{
+		} else {
 			System.out.println("NO");
 		}
 	}
