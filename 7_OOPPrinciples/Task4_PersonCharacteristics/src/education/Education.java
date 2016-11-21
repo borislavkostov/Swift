@@ -9,7 +9,17 @@ public abstract class Education {
 	private LocalDate enrollmentDate;
 	private LocalDate graduationDate;
 	private String institutionName;
-	
+	public Education(String instituionName,String enrollmentDate,String graduationDate){
+		this.setInstitutionName(instituionName);
+		this.setEnrollmentDate(enrollmentDate);
+		this.setGraduationDate(graduationDate);
+	}
+	public Education(String instituionName,String enrollmentDate,String graduationDate,double finalGrade){
+		this.setInstitutionName(instituionName);
+		this.setEnrollmentDate(enrollmentDate);
+		this.setGraduationDate(graduationDate);
+		this.setFinalGrade(finalGrade);
+	}
 	abstract public void getDegree();
 
 	abstract public void gotGraduated();
