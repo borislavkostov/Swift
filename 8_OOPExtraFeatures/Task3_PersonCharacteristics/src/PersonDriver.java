@@ -19,7 +19,7 @@ public class PersonDriver {
 			pr[i] = lineReader(line);
 		}
 		for (int i = 0; i < pr.length; i++) {
-			System.out.println(pr[i].toString());
+			System.out.println(pr[i]);
 		}
 	}
 
@@ -29,6 +29,7 @@ public class PersonDriver {
 		Address adr;
 		Person pr = new Person(st[0], st[1], st[2], st[3].charAt(0), st[4], Integer.parseInt(st[5]), st[14].charAt(0));
 		adr = new Address(st[6], st[7], st[8], st[9], st[10], Integer.parseInt(st[11]), st[12], st[13]);
+		pr.setAddress(adr);
 		if (pr.getEducationCode() == 'P') {
 			ed = new Primary(st[15], st[16], st[17]);
 		} else if (pr.getEducationCode() == 'S') {

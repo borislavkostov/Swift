@@ -16,7 +16,7 @@ public class Address {
 		this.setStreet(street);
 		this.setNumber(number);
 		this.setFloor(floor);
-		this.setFloor(floor);
+		this.setApartmentNO(apatmentNO);
 	}
 	
 	

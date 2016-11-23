@@ -41,91 +41,173 @@ public class Person {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyy");
 		if (this.getGender() == 'M') {
 			if (this.getEducationCode() == 'B') {
-				return String.format(
-						"%s %s is %dyears old.He was born in %d.He was started bachelor degree in %s on %s and finished on %s.His degree was %.2f",
-						this.getFirstName(), this.getLastName(),
-						Calendar.getInstance().get(Calendar.YEAR) - this.getYearOfBorn().getYear(),
-						this.getYearOfBorn().getYear(), this.getEducation().getInstitutionName(),
-						formatter.format(this.getEducation().getEnrollmentDate()),
-						formatter.format(this.getEducation().getGraduationDate()), this.getEducation().getFinalGrade());
-			} else if (this.getEducationCode() == 'S') {
-				return String.format(
-						"%s %s is %dyears old.He was born in %d.He was started secondary degree in %s on %s and finished on %s.His degree was %.2f",
-						this.getFirstName(), this.getLastName(),
-						Calendar.getInstance().get(Calendar.YEAR) - this.getYearOfBorn().getYear(),
-						this.getYearOfBorn().getYear(), this.getEducation().getInstitutionName(),
-						formatter.format(this.getEducation().getEnrollmentDate()),
-						formatter.format(this.getEducation().getGraduationDate()), this.getEducation().getFinalGrade());
-			} else if (this.getEducationCode() == 'P') {
-				return String.format(
-						"%s %s is %dyears old.He was born in %d.He was started primary degree in %s on %s and finished on %s.His degree was %.2f",
-						this.getFirstName(), this.getLastName(),
-						Calendar.getInstance().get(Calendar.YEAR) - this.getYearOfBorn().getYear(),
-						this.getYearOfBorn().getYear(), this.getEducation().getInstitutionName(),
-						formatter.format(this.getEducation().getEnrollmentDate()),
-						formatter.format(this.getEducation().getGraduationDate()), this.getEducation().getFinalGrade());
+				if (this.getAddress().getFloor().equals("")) {
+					return String.format(
+							"%s %s %s is %d years old. He was born in %s.%nHe lives at:%n%d %s Street%n%s %s%n%s %s%nHe was started bachelor degree in %s on %s and finished on %s.His grade was %.2f",
+							this.getFirstName(), this.getMiddleName(), this.getLastName(),
+							Calendar.getInstance().get(Calendar.YEAR) - this.getYearOfBorn().getYear(),
+							this.getYearOfBorn().getYear(), this.getAddress().getNumber(),
+							this.getAddress().getStreet(), this.getAddress().getPostalCode(),
+							this.getAddress().getMunicipality(), this.getAddress().getCity(),
+							this.getAddress().getCountry(), this.getEducation().getInstitutionName(),
+							formatter.format(this.getEducation().getEnrollmentDate()),
+							formatter.format(this.getEducation().getGraduationDate()),
+							this.getEducation().getFinalGrade());
+				} else if (!this.getAddress().getFloor().equals("")) {
+					return String.format(
+							"%s %s %s is %d years old. He was born in %s.%nHe lives at:%n%d %s Street%nfl. %s ,ap. %s%n%s %s%n%s %s%nHe was started bachelor degree in %s on %s and finished on %s.His grade was %.2f",
+							this.getFirstName(), this.getMiddleName(), this.getLastName(),
+							Calendar.getInstance().get(Calendar.YEAR) - this.getYearOfBorn().getYear(),
+							this.getYearOfBorn().getYear(), this.getAddress().getNumber(),
+							this.getAddress().getStreet(), this.getAddress().getFloor(),
+							this.getAddress().getApartmentNO(), this.getAddress().getPostalCode(),
+							this.getAddress().getMunicipality(), this.getAddress().getCity(),
+							this.getAddress().getCountry(), this.getEducation().getInstitutionName(),
+							formatter.format(this.getEducation().getEnrollmentDate()),
+							formatter.format(this.getEducation().getGraduationDate()),
+							this.getEducation().getFinalGrade());
+				}
 			} else if (this.getEducationCode() == 'M') {
-				return String.format(
-						"%s %s is %dyears old.He was born in %d.He was started master degree in %s on %s and finished on %s.His degree was %.2f",
-						this.getFirstName(), this.getLastName(),
-						Calendar.getInstance().get(Calendar.YEAR) - this.getYearOfBorn().getYear(),
-						this.getYearOfBorn().getYear(), this.getEducation().getInstitutionName(),
-						formatter.format(this.getEducation().getEnrollmentDate()),
-						formatter.format(this.getEducation().getGraduationDate()), this.getEducation().getFinalGrade());
-			} else if (this.getEducationCode() == 'D') {
-				return String.format(
-						"%s %s is %dyears old.He was born in %d.He was started doctorate degree in %s on %s and finished on %s.His degree was %.2f",
-						this.getFirstName(), this.getLastName(),
-						Calendar.getInstance().get(Calendar.YEAR) - this.getYearOfBorn().getYear(),
-						this.getYearOfBorn().getYear(), this.getEducation().getInstitutionName(),
-						formatter.format(this.getEducation().getEnrollmentDate()),
-						formatter.format(this.getEducation().getGraduationDate()), this.getEducation().getFinalGrade());
+				if (this.getAddress().getFloor().equals("")) {
+					return String.format(
+							"%s %s %s is %d years old. He was born in %s.%nHe lives at:%n%d %s Street%n%s %s%n%s %s%nHe was started master degree in %s on %s and finished on %s.His grade was %.2f",
+							this.getFirstName(), this.getMiddleName(), this.getLastName(),
+							Calendar.getInstance().get(Calendar.YEAR) - this.getYearOfBorn().getYear(),
+							this.getYearOfBorn().getYear(), this.getAddress().getNumber(),
+							this.getAddress().getStreet(), this.getAddress().getPostalCode(),
+							this.getAddress().getMunicipality(), this.getAddress().getCity(),
+							this.getAddress().getCountry(), this.getEducation().getInstitutionName(),
+							formatter.format(this.getEducation().getEnrollmentDate()),
+							formatter.format(this.getEducation().getGraduationDate()),
+							this.getEducation().getFinalGrade());
+				} else if (!this.getAddress().getFloor().equals("")) {
+					return String.format(
+							"%s %s %s is %d years old. He was born in %s.%nHe lives at:%n%d %s Street%nfl. %s ,ap. %s%n%s %s%n%s %s%nHe was started master degree in %s on %s and finished on %s.His grade was %.2f",
+							this.getFirstName(), this.getMiddleName(), this.getLastName(),
+							Calendar.getInstance().get(Calendar.YEAR) - this.getYearOfBorn().getYear(),
+							this.getYearOfBorn().getYear(), this.getAddress().getNumber(),
+							this.getAddress().getStreet(), this.getAddress().getFloor(),
+							this.getAddress().getApartmentNO(), this.getAddress().getPostalCode(),
+							this.getAddress().getMunicipality(), this.getAddress().getCity(),
+							this.getAddress().getCountry(), this.getEducation().getInstitutionName(),
+							formatter.format(this.getEducation().getEnrollmentDate()),
+							formatter.format(this.getEducation().getGraduationDate()),
+							this.getEducation().getFinalGrade());
+				}
+			} else if (this.getEducationCode() == 'S') {
+				if (this.getAddress().getFloor().equals("")) {
+					return String.format(
+							"%s %s %s is %d years old. He was born in %s.%nHe lives at:%n%d %s Street%n%s %s%n%s %s%nHe was started secondary degree in %s on %s and finished on %s.His grade was %.2f",
+							this.getFirstName(), this.getMiddleName(), this.getLastName(),
+							Calendar.getInstance().get(Calendar.YEAR) - this.getYearOfBorn().getYear(),
+							this.getYearOfBorn().getYear(), this.getAddress().getNumber(),
+							this.getAddress().getStreet(), this.getAddress().getPostalCode(),
+							this.getAddress().getMunicipality(), this.getAddress().getCity(),
+							this.getAddress().getCountry(), this.getEducation().getInstitutionName(),
+							formatter.format(this.getEducation().getEnrollmentDate()),
+							formatter.format(this.getEducation().getGraduationDate()),
+							this.getEducation().getFinalGrade());
+				} else if (!this.getAddress().getFloor().equals("")) {
+					return String.format(
+							"%s %s %s is %d years old. He was born in %s.%nHe lives at:%n%d %s Street%nfl. %s ,ap. %s%n%s %s%n%s %s%nHe was started secondary degree in %s on %s and finished on %s.His grade was %.2f",
+							this.getFirstName(), this.getMiddleName(), this.getLastName(),
+							Calendar.getInstance().get(Calendar.YEAR) - this.getYearOfBorn().getYear(),
+							this.getYearOfBorn().getYear(), this.getAddress().getNumber(),
+							this.getAddress().getStreet(), this.getAddress().getFloor(),
+							this.getAddress().getApartmentNO(), this.getAddress().getPostalCode(),
+							this.getAddress().getMunicipality(), this.getAddress().getCity(),
+							this.getAddress().getCountry(), this.getEducation().getInstitutionName(),
+							formatter.format(this.getEducation().getEnrollmentDate()),
+							formatter.format(this.getEducation().getGraduationDate()),
+							this.getEducation().getFinalGrade());
+				}
 			}
-
-		} else {
+		} else if (this.getGender() == 'F') {
 			if (this.getEducationCode() == 'B') {
-				return String.format(
-						"%s %s is %dyears old.Shee was born in %d.She was started bachelor degree in %s on %s and finished on %s.Her degree was %.2f",
-						this.getFirstName(), this.getLastName(),
-						Calendar.getInstance().get(Calendar.YEAR) - this.getYearOfBorn().getYear(),
-						this.getYearOfBorn().getYear(), this.getEducation().getInstitutionName(),
-						formatter.format(this.getEducation().getEnrollmentDate()),
-						formatter.format(this.getEducation().getGraduationDate()), this.getEducation().getFinalGrade());
-			} else if (this.getEducationCode() == 'S') {
-				return String.format(
-						"%s %s is %dyears old.She was born in %d.She was started secondary degree in %s on %s and finished on %s.Her degree was %.2f",
-						this.getFirstName(), this.getLastName(),
-						Calendar.getInstance().get(Calendar.YEAR) - this.getYearOfBorn().getYear(),
-						this.getYearOfBorn().getYear(), this.getEducation().getInstitutionName(),
-						formatter.format(this.getEducation().getEnrollmentDate()),
-						formatter.format(this.getEducation().getGraduationDate()), this.getEducation().getFinalGrade());
-			} else if (this.getEducationCode() == 'P') {
-				return String.format(
-						"%s %s is %dyears old.She was born in %d.She was started primary degree in %s on %s and finished on %s.Her degree was %.2f",
-						this.getFirstName(), this.getLastName(),
-						Calendar.getInstance().get(Calendar.YEAR) - this.getYearOfBorn().getYear(),
-						this.getYearOfBorn().getYear(), this.getEducation().getInstitutionName(),
-						formatter.format(this.getEducation().getEnrollmentDate()),
-						formatter.format(this.getEducation().getGraduationDate()), this.getEducation().getFinalGrade());
+				if (this.getAddress().getFloor().equals("")) {
+					return String.format(
+							"%s %s %s is %d years old. She was born in %s.%nShe lives at:%n%d %s Street%n%s %s%n%s %s%nShe was started bachelor degree in %s on %s and finished on %s.Her grade was %.2f",
+							this.getFirstName(), this.getMiddleName(), this.getLastName(),
+							Calendar.getInstance().get(Calendar.YEAR) - this.getYearOfBorn().getYear(),
+							this.getYearOfBorn().getYear(), this.getAddress().getNumber(),
+							this.getAddress().getStreet(), this.getAddress().getPostalCode(),
+							this.getAddress().getMunicipality(), this.getAddress().getCity(),
+							this.getAddress().getCountry(), this.getEducation().getInstitutionName(),
+							formatter.format(this.getEducation().getEnrollmentDate()),
+							formatter.format(this.getEducation().getGraduationDate()),
+							this.getEducation().getFinalGrade());
+				} else if (!this.getAddress().getFloor().equals("")) {
+					return String.format(
+							"%s %s %s is %d years old. She was born in %s.%nShe lives at:%n%d %s Street%nfl. %s ,ap. %s%n%s %s%n%s %s%nShe was started bachelor degree in %s on %s and finished on %s.Her grade was %.2f",
+							this.getFirstName(), this.getMiddleName(), this.getLastName(),
+							Calendar.getInstance().get(Calendar.YEAR) - this.getYearOfBorn().getYear(),
+							this.getYearOfBorn().getYear(), this.getAddress().getNumber(),
+							this.getAddress().getStreet(), this.getAddress().getFloor(),
+							this.getAddress().getApartmentNO(), this.getAddress().getPostalCode(),
+							this.getAddress().getMunicipality(), this.getAddress().getCity(),
+							this.getAddress().getCountry(), this.getEducation().getInstitutionName(),
+							formatter.format(this.getEducation().getEnrollmentDate()),
+							formatter.format(this.getEducation().getGraduationDate()),
+							this.getEducation().getFinalGrade());
+				}
 			} else if (this.getEducationCode() == 'M') {
-				return String.format(
-						"%s %s is %dyears old.She was born in %d.She was started master degree in %s on %s and finished on %s.Her degree was %.2f",
-						this.getFirstName(), this.getLastName(),
-						Calendar.getInstance().get(Calendar.YEAR) - this.getYearOfBorn().getYear(),
-						this.getYearOfBorn().getYear(), this.getEducation().getInstitutionName(),
-						formatter.format(this.getEducation().getEnrollmentDate()),
-						formatter.format(this.getEducation().getGraduationDate()), this.getEducation().getFinalGrade());
-			} else if (this.getEducationCode() == 'D') {
-				return String.format(
-						"%s %s is %dyears old.She was born in %d.She was started doctorate degree in %s on %s and finished on %s.Her degree was %.2f",
-						this.getFirstName(), this.getLastName(),
-						Calendar.getInstance().get(Calendar.YEAR) - this.getYearOfBorn().getYear(),
-						this.getYearOfBorn().getYear(), this.getEducation().getInstitutionName(),
-						formatter.format(this.getEducation().getEnrollmentDate()),
-						formatter.format(this.getEducation().getGraduationDate()), this.getEducation().getFinalGrade());
+				if (this.getAddress().getFloor().equals("")) {
+					return String.format(
+							"%s %s %s is %d years old. She was born in %s.%nShe lives at:%n%d %s Street%n%s %s%n%s %s%nShe was started master degree in %s on %s and finished on %s.Her grade was %.2f",
+							this.getFirstName(), this.getMiddleName(), this.getLastName(),
+							Calendar.getInstance().get(Calendar.YEAR) - this.getYearOfBorn().getYear(),
+							this.getYearOfBorn().getYear(), this.getAddress().getNumber(),
+							this.getAddress().getStreet(), this.getAddress().getPostalCode(),
+							this.getAddress().getMunicipality(), this.getAddress().getCity(),
+							this.getAddress().getCountry(), this.getEducation().getInstitutionName(),
+							formatter.format(this.getEducation().getEnrollmentDate()),
+							formatter.format(this.getEducation().getGraduationDate()),
+							this.getEducation().getFinalGrade());
+				} else if (!this.getAddress().getFloor().equals("")) {
+					return String.format(
+							"%s %s %s is %d years old. She was born in %s.%nShe lives at:%n%d %s Street%nfl. %s ,ap. %s%n%s %s%n%s %s%nShe was started master degree in %s on %s and finished on %s.Her grade was %.2f",
+							this.getFirstName(), this.getMiddleName(), this.getLastName(),
+							Calendar.getInstance().get(Calendar.YEAR) - this.getYearOfBorn().getYear(),
+							this.getYearOfBorn().getYear(), this.getAddress().getNumber(),
+							this.getAddress().getStreet(), this.getAddress().getFloor(),
+							this.getAddress().getApartmentNO(), this.getAddress().getPostalCode(),
+							this.getAddress().getMunicipality(), this.getAddress().getCity(),
+							this.getAddress().getCountry(), this.getEducation().getInstitutionName(),
+							formatter.format(this.getEducation().getEnrollmentDate()),
+							formatter.format(this.getEducation().getGraduationDate()),
+							this.getEducation().getFinalGrade());
+				}
+			} else if (this.getEducationCode() == 'S') {
+				if (this.getAddress().getFloor().equals("")) {
+					return String.format(
+							"%s %s %s is %d years old. She was born in %s.%nShe lives at:%n%d %s Street%n%s %s%n%s %s%nShe was started secondary degree in %s on %s and finished on %s.Her grade was %.2f",
+							this.getFirstName(), this.getMiddleName(), this.getLastName(),
+							Calendar.getInstance().get(Calendar.YEAR) - this.getYearOfBorn().getYear(),
+							this.getYearOfBorn().getYear(), this.getAddress().getNumber(),
+							this.getAddress().getStreet(), this.getAddress().getPostalCode(),
+							this.getAddress().getMunicipality(), this.getAddress().getCity(),
+							this.getAddress().getCountry(), this.getEducation().getInstitutionName(),
+							formatter.format(this.getEducation().getEnrollmentDate()),
+							formatter.format(this.getEducation().getGraduationDate()),
+							this.getEducation().getFinalGrade());
+				} else if (!this.getAddress().getFloor().equals("")) {
+					return String.format(
+							"%s %s %s is %d years old. She was born in %s.%nShe lives at:%n%d %s Street%nfl. %s ,ap. %s%n%s %s%n%s %s%nShe was started secondary degree in %s on %s and finished on %s.Her grade was %.2f",
+							this.getFirstName(), this.getMiddleName(), this.getLastName(),
+							Calendar.getInstance().get(Calendar.YEAR) - this.getYearOfBorn().getYear(),
+							this.getYearOfBorn().getYear(), this.getAddress().getNumber(),
+							this.getAddress().getStreet(), this.getAddress().getFloor(),
+							this.getAddress().getApartmentNO(), this.getAddress().getPostalCode(),
+							this.getAddress().getMunicipality(), this.getAddress().getCity(),
+							this.getAddress().getCountry(), this.getEducation().getInstitutionName(),
+							formatter.format(this.getEducation().getEnrollmentDate()),
+							formatter.format(this.getEducation().getGraduationDate()),
+							this.getEducation().getFinalGrade());
+				}
 			}
 		}
-		return null;
+		return firstName;
+
 	}
 
 	public Education getEducation() {
