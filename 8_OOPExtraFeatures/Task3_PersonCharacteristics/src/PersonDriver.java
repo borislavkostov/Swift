@@ -15,7 +15,7 @@ public class PersonDriver {
 		Person pr[] = new Person[n];
 		for (int i = 0; i < pr.length; i++) {
 			line = input.nextLine();
-			//pr[i] = new Person();
+			// pr[i] = new Person();
 			pr[i] = lineReader(line);
 		}
 		for (int i = 0; i < pr.length; i++) {
@@ -26,26 +26,23 @@ public class PersonDriver {
 	public static Person lineReader(String line) {
 		String st[] = line.trim().split(";");
 		Education ed;
-		Person pr = new Person(st[0], st[1], st[2].charAt(0), Integer.parseInt(st[3]), st[4], st[5].charAt(0));
+		Address adr;
+		Person pr = new Person(st[0], st[1], st[2], st[3].charAt(0), st[4], Integer.parseInt(st[5]), st[14].charAt(0));
+		adr = new Address(st[6], st[7], st[8], st[9], st[10], Integer.parseInt(st[11]), st[12], st[13]);
 		if (pr.getEducationCode() == 'P') {
-			ed = new Primary(st[6], st[7], st[8]);
-			if (ed.getGraduationDate().isBefore(LocalDate.now())) {
-				ed.setGraduated(true);
-				ed.setFinalGrade(Double.parseDouble(st[9]));
-			}
-			pr.setEducation(ed);
+			ed = new Primary(st[15], st[16], st[17]);
 		} else if (pr.getEducationCode() == 'S') {
-			ed = new Secondary(st[6], st[7], st[8]);
+			ed = new Primary(st[15], st[16], st[17]);
 			if (ed.getGraduationDate().isBefore(LocalDate.now())) {
 				ed.setGraduated(true);
-				ed.setFinalGrade(Double.parseDouble(st[9]));
+				ed.setFinalGrade(Double.parseDouble(st[18]));
 			}
 			pr.setEducation(ed);
 		} else if (pr.getEducationCode() == 'B' || pr.getEducationCode() == 'D' || pr.getEducationCode() == 'M') {
-			ed = new HigherEducation(st[6], st[7], st[8]);
+			ed = new Primary(st[15], st[16], st[17]);
 			if (ed.getGraduationDate().isBefore(LocalDate.now())) {
 				ed.setGraduated(true);
-				ed.setFinalGrade(Double.parseDouble(st[9]));
+				ed.setFinalGrade(Double.parseDouble(st[18]));
 			}
 			pr.setEducation(ed);
 		}

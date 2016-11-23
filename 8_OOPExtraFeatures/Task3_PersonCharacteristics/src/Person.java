@@ -19,15 +19,19 @@ public class Person {
 	private double grade4;
 	private Education education;
 	private char educationCode;
-	
-	public Person(String fName, String lName, char gender,int heigh,String yearOfBorn,char educationCode) {
+	private Address address;
+
+	public Person(String fName, String middleName, String lName, char gender, String yearOfBorn, int heigh,
+			char educationCode) {
 		this.firstName = fName;
+		this.middleName = middleName;
 		this.lastName = lName;
 		this.gender = gender;
-		this.height=heigh;
+		this.height = heigh;
 		this.setYearOfBorn(yearOfBorn);
 		this.setEducationCode(educationCode);
 	}
+
 	public Person() {
 		this.firstName = "UNKNOWN";
 		this.lastName = "UNKNOWN";
@@ -228,10 +232,20 @@ public class Person {
 	public void setEducationCode(char educationCode) {
 		this.educationCode = educationCode;
 	}
+
 	public String getMiddleName() {
 		return middleName;
 	}
+
 	public void setMiddleName(String middleName) {
 		this.middleName = middleName;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 }

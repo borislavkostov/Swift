@@ -6,8 +6,22 @@ public class Address {
 	private String  postalCode;
 	private String street;
 	private int number;
-	private int floor;
-	private int apartmentNO;
+	private String floor;
+	private String apartmentNO;
+	public Address(String country,String city,String  municipality,String postalCode,String street,int number,String floor,String apatmentNO){
+		this.setCountry(country);
+		this.setCity(city);
+		this.setMunicipality(municipality);
+		this.setPostalCode(postalCode);
+		this.setStreet(street);
+		this.setNumber(number);
+		this.setFloor(floor);
+		this.setFloor(floor);
+	}
+	
+	
+	
+	
 	public String getCountry() {
 		return country;
 	}
@@ -44,16 +58,16 @@ public class Address {
 	public void setNumber(int number) {
 		this.number = number;
 	}
-	public int getFloor() {
+	public String getFloor() {
 		return floor;
 	}
-	public void setFloor(int floor) {
+	public void setFloor(String floor) {
 		this.floor = floor;
 	}
-	public int getApartmentNO() {
+	public String getApartmentNO() {
 		return apartmentNO;
 	}
-	public void setApartmentNO(int apartmentNO) {
+	public void setApartmentNO(String apartmentNO) {
 		this.apartmentNO = apartmentNO;
 	}
 }
