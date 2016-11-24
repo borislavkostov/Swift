@@ -59,6 +59,9 @@ public abstract class Education {
 	public void setGraduationDate(String graduationDate) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.yyy");
 		this.graduationDate = LocalDate.parse(graduationDate, formatter);
+		if(this.graduationDate.isBefore(this.enrollmentDate)){
+			throw new IllegalArgumentException("Graduation Date needs to be after enrollment date .");
+		}
 	}
 
 	public String getInstitutionName() {
