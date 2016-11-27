@@ -14,9 +14,8 @@ public class Task9_ExpressionCalculator {
 		String expression = input.nextLine();
 		List<Integer> index = new ArrayList<>();
 		for (int i = 0; i < index.size(); i++) {
-			
+			index.add(expression.indexOf("^")+1);
 		}
-		 expression.indexOf("^");
 		ScriptEngineManager mgr = new ScriptEngineManager();
 		ScriptEngine engine = mgr.getEngineByName("JavaScript");
 		String foo = expression;
