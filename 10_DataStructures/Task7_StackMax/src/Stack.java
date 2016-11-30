@@ -30,7 +30,7 @@ public class Stack<E> {
 	}
 
 	public void getValues() {
-		for (int i = stack.size()-1; i > 0; i--) {
+		for (int i = stack.size()-1; i >= 0; i--) {
 			System.out.print(this.stack.get(i) + " ");
 		}
 		System.out.println();
