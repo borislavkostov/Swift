@@ -10,7 +10,7 @@ public class Task0_Sakila {
 	public static void main(String args[]) throws SQLException {
 		Scanner input = new Scanner(System.in);
 		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/SwiftEvents", "root",
-				"****")) {
+				"lENOVOT999")) {
 			// try (PreparedStatement statement = conn.prepareStatement(
 			// "INSERT INTO Events(`name`,`date`,`ticket_price`,`type_id`)
 			// VALUES(?,?,?,?)")) {
@@ -31,7 +31,7 @@ public class Task0_Sakila {
 			try (Statement statement = conn.createStatement()) {
 				try(ResultSet result = statement.executeQuery("SELECT `name`,`place` FROM SwiftEvents.Events;")){
 					while (result.next()) {
-						System.out.printf("%n%s\t| %s%n",result.getString("name"),result.getString("place"));
+						System.out.printf("%n%-30s| %s%n",result.getString("name"),result.getString("place"));
 					}
 				}
 				
