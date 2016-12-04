@@ -40,5 +40,11 @@ public class Driver {
 		for (Discipline discipline2 : discipline) {
 			System.out.println(discipline2);
 		}
+		System.out.println(" ");
+		System.out.println("Last METHOD TEST");
+		List<Teacher>teh = MySQLSchoolData.getTeacherByDisciplineName("Geography", conn);
+		for (Teacher teacher : teh) {
+			System.out.println(teacher);
+		}
 	}
 }

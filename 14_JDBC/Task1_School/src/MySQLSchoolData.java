@@ -106,4 +106,19 @@ public class MySQLSchoolData {
 			}
 		}
 	}
+
+	public static List<Teacher> getTeacherByDisciplineName(String disciplineName, Connection conn) throws SQLException {
+		List<Teacher> teachers = new ArrayList<>();
+		try (PreparedStatement statement = conn.prepareStatement(
+				"SELECT teachers.id,teachers.name,teachers.salary,teachers.email FROM (teachers,disciplines) INNER JOIN School.disciplines_taught ON  School.disciplines.name=? AND School.disciplines_taught.disciplines_id=School.disciplines.id AND School.teachers.id = School.disciplines_taught.teacher_id;")) {
+			statement.setString(1, disciplineName);
+			try (ResultSet result = statement.executeQuery()) {
+				while (result.next()) {
+					teachers.add(new Teacher(result.getInt("id"), result.getString("name"), result.getString("email"),
+							result.getDouble("salary")));
+				}
+				return teachers;
+			}
+		}
+	}
 }
