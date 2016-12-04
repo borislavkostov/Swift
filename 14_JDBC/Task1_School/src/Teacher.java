@@ -12,6 +12,12 @@ public class Teacher {
 		this.setSalary(salary);
 	}
 
+	public Teacher(String name, String email, double salary) {
+		this.name = name;
+		this.email = email;
+		this.salary = salary;
+	}
+
 	public String toString() {
 		return this.getId() + " " + this.getName() + " " + this.getEmail()+" "+this.getSalary();
 	}

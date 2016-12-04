@@ -70,4 +70,15 @@ public class MySQLSchoolData {
 			}
 		}
 	}
+
+	public static void insertTeacher(Teacher tc, Connection conn) throws SQLException {
+		try (PreparedStatement statement = conn
+				.prepareStatement("INSERT INTO School.teachers(`name`,`email`,`salary`)VALUES(?,?,?)")) {
+			statement.setString(1, tc.getName());
+			statement.setString(2, tc.getEmail());
+			statement.setDouble(3, tc.getSalary());
+			statement.execute();
+
+		}
+	}
 }

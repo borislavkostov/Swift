@@ -31,5 +31,7 @@ public class Driver {
 		for (Student student : students) {
 			System.out.println(student);
 		}
+		//Teacher th = new Teacher("Ivan Penev","ivanp@gmail.com",500);
+		//MySQLSchoolData.insertTeacher(th, conn);
 	}
 }
