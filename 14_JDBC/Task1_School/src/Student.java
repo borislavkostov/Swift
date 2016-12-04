@@ -9,6 +9,10 @@ public class Student {
 		this.name = name;
 		this.enrollmentDate = enrollmentDate;
 	}
+	public Student(String name, Date enrollmentDate) {
+		this.name = name;
+		this.enrollmentDate = enrollmentDate;
+	}
 	public String toString(){
 		return this.getId()+" "+this.getName()+" "+this.getEnrollmentDate();
 	}

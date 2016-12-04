@@ -81,4 +81,29 @@ public class MySQLSchoolData {
 
 		}
 	}
+
+	public static void insertStudent(Student st, Connection conn) throws SQLException {
+		try (PreparedStatement statement = conn
+				.prepareStatement("INSERT INTO School.Students(`name`,`enrollment_date`)VALUES(?,?)")) {
+			statement.setString(1, st.getName());
+			statement.setDate(2, st.getEnrollmentDate());
+			;
+			statement.execute();
+
+		}
+	}
+
+	public static List<Discipline> getDisciplinesByTeacherId(int teacherId, Connection conn) throws SQLException {
+		List<Discipline> disciplines = new ArrayList<>();
+		try (PreparedStatement statement = conn.prepareStatement(
+				"SELECT School.disciplines_taught.disciplines_id,School.disciplines.name FROM disciplines_taught INNER JOIN disciplines ON teacher_id=? AND School.disciplines.id = School.disciplines_taught.disciplines_id")) {
+			statement.setInt(1, teacherId);
+			try (ResultSet result = statement.executeQuery()) {
+				while (result.next()) {
+					disciplines.add(new Discipline(result.getInt("disciplines_id"), result.getString("name")));
+				}
+				return disciplines;
+			}
+		}
+	}
 }

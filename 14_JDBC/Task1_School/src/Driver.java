@@ -33,5 +33,12 @@ public class Driver {
 		}
 		//Teacher th = new Teacher("Ivan Penev","ivanp@gmail.com",500);
 		//MySQLSchoolData.insertTeacher(th, conn);
+		//Student sh = new Student("Qna Pilova",Date.valueOf("2016-05-24"));
+		//MySQLSchoolData.insertStudent(sh, conn);
+		System.out.println();
+		List<Discipline> discipline = MySQLSchoolData.getDisciplinesByTeacherId(1, conn);
+		for (Discipline discipline2 : discipline) {
+			System.out.println(discipline2);
+		}
 	}
 }
