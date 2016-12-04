@@ -1,4 +1,5 @@
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,6 +23,13 @@ public class Driver {
 		List<Teacher> teachers = MySQLSchoolData.getTeachers(1700, 1900, conn);
 		for (Teacher teacher : teachers) {
 			System.out.println(teacher);
+		}
+		System.out.println();
+		System.out.println("Studnets Testing");
+		System.out.println();
+		List<Student>students = MySQLSchoolData.getStudents(Date.valueOf("2007-01-17"), conn);
+		for (Student student : students) {
+			System.out.println(student);
 		}
 	}
 }

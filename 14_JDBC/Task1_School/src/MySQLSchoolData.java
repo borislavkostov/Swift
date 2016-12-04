@@ -1,4 +1,5 @@
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,10 +37,12 @@ public class MySQLSchoolData {
 			}
 		}
 	}
-	public static List<Teacher> getTeachers(double salaryFrom,double salaryTo ,Connection conn) throws SQLException {
+
+	public static List<Teacher> getTeachers(double salaryFrom, double salaryTo, Connection conn) throws SQLException {
 		List<Teacher> teacher = new ArrayList<>();
-		try (PreparedStatement statement = conn.prepareStatement("SELECT * FROM School.teachers WHERE salary>? and salary<?;")) {
-			statement.setDouble(1,salaryFrom);
+		try (PreparedStatement statement = conn
+				.prepareStatement("SELECT * FROM School.teachers WHERE salary>? and salary<?;")) {
+			statement.setDouble(1, salaryFrom);
 			statement.setDouble(2, salaryTo);
 			try (ResultSet result = statement.executeQuery()) {
 				while (result.next()) {
@@ -51,5 +54,20 @@ public class MySQLSchoolData {
 			}
 		}
 		return teacher;
+	}
+
+	public static List<Student> getStudents(Date afterDate, Connection conn) throws SQLException {
+		List<Student> students = new ArrayList<>();
+		try (PreparedStatement statement = conn
+				.prepareStatement("SELECT * FROM School.Students WHERE enrollment_date>?;")) {
+			statement.setDate(1, afterDate);
+			try (ResultSet result = statement.executeQuery()) {
+				while (result.next()) {
+					students.add(new Student(result.getInt("id"), result.getString("name"),
+							result.getDate("enrollment_date")));
+				}
+				return students;
+			}
+		}
 	}
 }
