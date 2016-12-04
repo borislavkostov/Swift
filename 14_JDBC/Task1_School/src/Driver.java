@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 public class Driver {
 	public static void main(String args[]) throws SQLException {
@@ -16,5 +17,11 @@ public class Driver {
 		//}
 		Teacher tc =MySQLSchoolData.getTeacher(3, conn);
 		System.out.println(tc);
+		Student st = MySQLSchoolData.getStudent(1, conn);
+		System.out.println(st);
+		List<Teacher> teachers = MySQLSchoolData.getTeachers(1700, 1900, conn);
+		for (Teacher teacher : teachers) {
+			System.out.println(teacher);
+		}
 	}
 }
