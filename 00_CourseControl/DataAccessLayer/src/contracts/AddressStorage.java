@@ -4,4 +4,5 @@ public interface AddressStorage {
 
     public int setCountry(String country)throws Exception;
     public void insertAddress(Address adr)throws Exception;
+    public void insertSmallAddress(Address adr)throws Exception;
 }

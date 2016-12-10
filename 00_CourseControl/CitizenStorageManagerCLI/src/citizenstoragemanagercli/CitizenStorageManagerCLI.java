@@ -14,6 +14,8 @@ public class CitizenStorageManagerCLI {
         //System.out.println(adr.setCountry("USA"));
         Address adres = new Address("Bulgaria","Sofia","Sofia-grad","1750","jerusalim","3",2,1);
         adr.insertAddress(adres);
+        Address adresa = new Address("Bulgaria","Sofia","Sofia-grad","1780","blok","222");
+        adr.insertSmallAddress(adresa);
     }
     
 }
