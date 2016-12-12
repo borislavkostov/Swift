@@ -27,7 +27,7 @@ public class MySqlAddressStorage implements AddressStorage {
     }
     public void insertAddress(Address adr)throws SQLException{
          Connection conn = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
-         try (CallableStatement statement = conn.prepareCall("{call set_address(?,?,?,?,?,?,?,?)}")) {
+         try (CallableStatement statement = conn.prepareCall("{call set_address(?,?,?,?,?,?,?,?,?)}")) {
              statement.setString("new_country", adr.getCountry());
              statement.setString("new_city", adr.getCity());
              statement.setString("new_municipality",adr.getMunicipality());
