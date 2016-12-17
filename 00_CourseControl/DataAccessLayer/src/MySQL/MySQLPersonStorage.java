@@ -11,6 +11,7 @@ import java.sql.Types;
 import java.time.LocalDate;
 import personaldetails.Citizen;
 import personaldetails.Gender;
+import address.Address;
 
 public class MySQLPersonStorage implements PersonStorage {
 
@@ -19,7 +20,8 @@ public class MySQLPersonStorage implements PersonStorage {
     final String DBMS_PASSWORD = "173173";
 
     @Override
-    public Integer enterPerson(Citizen person) throws SQLException {
+    public int enterPerson(Citizen person) throws SQLException {
+        MySqlAddressStorage adr = new MySqlAddressStorage();
         Connection conn = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
         try (CallableStatement statement = conn.prepareCall("{call enter_person(?,?,?,?,?,?,?)}")) {
             statement.setString("new_first_name", person.getFirstName());
@@ -34,7 +36,9 @@ public class MySQLPersonStorage implements PersonStorage {
             statement.setDate("new_date_ofbirt", (Date.valueOf(person.getDateOfBirth())));
             statement.registerOutParameter("new_id", Types.INTEGER);
             statement.execute();
-            Integer newId = statement.getInt("new_id");
+            int newId = statement.getInt("new_id");
+            int address_id = adr.insertAddress(person.getAddress());//Here we are adding Address enter in database and getting id of the enter
+            this.enterAddressID(newId, address_id);
             return newId;
         }
     }
