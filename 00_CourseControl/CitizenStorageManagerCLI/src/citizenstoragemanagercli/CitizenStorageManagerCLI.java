@@ -23,12 +23,12 @@ public class CitizenStorageManagerCLI {
 //        adr.insertSmallAddress(adresa);
         MySQLPersonStorage personStorage = new MySQLPersonStorage();
         DateTimeFormatter germanFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.GERMAN);
-        LocalDate date = LocalDate.parse("13.03.1997",germanFormatter); 
-        Citizen person = new Citizen("Borislav","Ivailov","Kostov",Gender.Male,198,date);
-        Address adres = new Address("Bulgaria","Sofia","Sofia-grad","1780","jerusalim","13",4,22);
-        //System.out.println(personStorage.enterPerson(person));
-        personStorage.enterAddressID(personStorage.enterPerson(person),adr.insertAddress(adres));
-        
+        LocalDate date = LocalDate.parse("13.03.1997", germanFormatter);
+        Citizen person = new Citizen("Alexander", "Ivailov", "Kostov", Gender.Male, 198, date);
+        Address adres = new Address("Bulgaria", "Sofia", "Sofia-grad", "1780", "jerusalim", "13", 4, 22);
+        person.setAddress(adres);
+        personStorage.enterPerson(person);
+
     }
 
 }
