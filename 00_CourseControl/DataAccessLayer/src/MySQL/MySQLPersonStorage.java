@@ -13,6 +13,7 @@ import personaldetails.Citizen;
 import personaldetails.Gender;
 import address.Address;
 import education.Education;
+import insurance.SocialInsuranceRecord;
 
 public class MySQLPersonStorage implements PersonStorage {
 
@@ -24,6 +25,7 @@ public class MySQLPersonStorage implements PersonStorage {
     public int enterPerson(Citizen person) throws SQLException {
         MySqlAddressStorage adr = new MySqlAddressStorage();
         MySQLEducationStorage edu = new MySQLEducationStorage();
+        MySQLSocialInsuranceStorage ins = new MySQLSocialInsuranceStorage();
         Connection conn = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
         try (CallableStatement statement = conn.prepareCall("{call enter_person(?,?,?,?,?,?,?)}")) {
             statement.setString("new_first_name", person.getFirstName());
@@ -37,12 +39,15 @@ public class MySQLPersonStorage implements PersonStorage {
             statement.setInt("new_height", person.getHeight());
             statement.setDate("new_date_ofbirt", (Date.valueOf(person.getDateOfBirth())));
             statement.registerOutParameter("new_id", Types.INTEGER);
-            statement.execute();
+            statement.execute();//we are executing enter_person procedure
             int newPersonId = statement.getInt("new_id");
             int address_id = adr.insertAddress(person.getAddress());//Here we are adding Address enter in database and getting id of the enter
             this.enterAddressID(newPersonId, address_id);
-            for(Education education:person.getEducations()){
+            for (Education education : person.getEducations()) {//Here we are aadding records for education of student
                 edu.insertEducation(education, newPersonId);
+            }
+            for (SocialInsuranceRecord rec : person.getSocialInsuranceRecords()) {//Here we are adding recorrds for social insurance
+                ins.enterSocialInsurance(rec, newPersonId);
             }
             return newPersonId;
         }
