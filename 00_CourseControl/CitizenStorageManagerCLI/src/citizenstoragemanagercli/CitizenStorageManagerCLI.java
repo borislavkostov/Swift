@@ -11,8 +11,10 @@ import java.util.Locale;
 import personaldetails.Citizen;
 import personaldetails.Gender;
 import education.*;
+import insurance.SocialInsuranceRecord;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 public class CitizenStorageManagerCLI {
 
     public static void main(String[] args) throws SQLException {
@@ -35,8 +37,19 @@ public class CitizenStorageManagerCLI {
         Education edu1 = new HigherEducation("UNWE",LocalDate.parse("15.09.2005", germanFormatter),LocalDate.parse("20.05.2011", germanFormatter),EducationDegree.Bachelor);
         person.addEducation(edu1);
         person.addEducation(edu);
+        SocialInsuranceRecord rec = new SocialInsuranceRecord(2005,3,25.5);
+        SocialInsuranceRecord rec1 = new SocialInsuranceRecord(2005,4,25.4);
+        SocialInsuranceRecord rec2 = new SocialInsuranceRecord(2005,5,42.32);
+        SocialInsuranceRecord rec3 = new SocialInsuranceRecord(2005,6,41.33);
+       person.addSocialInsuranceRecord(rec);
+       person.addSocialInsuranceRecord(rec1);
+       person.addSocialInsuranceRecord(rec2);
+        person.addSocialInsuranceRecord(rec3);
         personStorage.enterPerson(person);
 
+    }
+    public static void enterformFile(Scanner input){
+        
     }
 
 }
