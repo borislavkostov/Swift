@@ -14,8 +14,6 @@ import education.*;
 import insurance.SocialInsuranceRecord;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 
@@ -25,7 +23,9 @@ public class CitizenStorageManagerCLI {
 
         MySQLPersonStorage personStorage = new MySQLPersonStorage();
         Scanner input = new Scanner(new File("in.txt"));
-        while (input.hasNext()) {
+        int recordsMax = input.nextInt();
+        
+        for(int i = 0;i< recordsMax;i++){
             System.out.println(personStorage.enterPerson(enterPerson(input)));
         }
 

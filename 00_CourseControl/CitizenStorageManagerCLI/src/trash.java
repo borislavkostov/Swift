@@ -15,6 +15,7 @@ import education.GradedEducation;
 import education.HigherEducation;
 import education.PrimaryEducation;
 import insurance.SocialInsuranceRecord;
+import java.time.LocalTime;
 
 public class trash {
 
@@ -22,7 +23,9 @@ public class trash {
         Scanner input = new Scanner(new File("in.txt"));
         //input.useDelimiter("\\n");
         while (input.hasNext()) {
+            System.out.println(LocalTime.now());
             System.out.println(enterPerson(input).toString());
+            System.out.println(LocalTime.now());
         }
     }
 
