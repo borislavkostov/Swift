@@ -1,36 +1,32 @@
-package citizenstoragemanagercli;
 
-import MySQL.MySqlAddressStorage;
-import java.sql.SQLException;
-import address.Address;
-import MySQL.MySQLPersonStorage;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Locale;
+import java.util.Scanner;
 import personaldetails.Citizen;
 import personaldetails.Gender;
-import education.*;
+import education.Education;
+import address.Address;
+import education.EducationDegree;
+import education.GradedEducation;
+import education.HigherEducation;
+import education.PrimaryEducation;
 import insurance.SocialInsuranceRecord;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
+public class trash {
 
-public class CitizenStorageManagerCLI {
-
-    public static void main(String[] args) throws SQLException, FileNotFoundException {
-
-        MySQLPersonStorage personStorage = new MySQLPersonStorage();
+    public static void main(String args[]) throws FileNotFoundException {
         Scanner input = new Scanner(new File("in.txt"));
+        //input.useDelimiter("\\n");
         while (input.hasNext()) {
-            System.out.println(personStorage.enterPerson(enterPerson(input)));
+            System.out.println(enterPerson(input).toString());
         }
-
     }
-public static Citizen enterPerson(Scanner input) {
+
+    public static Citizen enterPerson(Scanner input) {
         input.useDelimiter("\\n");
         Citizen person;
         String[] info = input.next().split(";", -1);
