@@ -12,7 +12,7 @@ import java.util.List;
 
 public class MySQLEducationStorage implements EducationStorage {
 
-    final String DBMS_CONN_STRING = "jdbc:mysql://localhost:3306/PersonCharacteristicsDB";
+    final String DBMS_CONN_STRING = "jdbc:mysql://localhost:3306/PersonCharacteristicsDB?useUnicode=true&characterEncoding=UTF-8";
     final String DBMS_USERNAME = "root";
     final String DBMS_PASSWORD = "173173";
 
@@ -30,6 +30,8 @@ public class MySQLEducationStorage implements EducationStorage {
             statement.setString("new_institution_name", education.getInstitutionName());
             statement.setInt("new_person_id", personID);
             statement.execute();
+        } finally {
+            conn.close();
         }
     }
 }

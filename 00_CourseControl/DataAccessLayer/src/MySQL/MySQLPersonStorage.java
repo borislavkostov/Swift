@@ -17,7 +17,7 @@ import insurance.SocialInsuranceRecord;
 
 public class MySQLPersonStorage implements PersonStorage {
 
-    final String DBMS_CONN_STRING = "jdbc:mysql://localhost:3306/PersonCharacteristicsDB";
+    final String DBMS_CONN_STRING = "jdbc:mysql://localhost:3306/PersonCharacteristicsDB?useUnicode=true&characterEncoding=UTF-8";
     final String DBMS_USERNAME = "root";
     final String DBMS_PASSWORD = "173173";
 
@@ -26,7 +26,7 @@ public class MySQLPersonStorage implements PersonStorage {
         MySqlAddressStorage adr = new MySqlAddressStorage();
         MySQLEducationStorage edu = new MySQLEducationStorage();
         MySQLSocialInsuranceStorage ins = new MySQLSocialInsuranceStorage();
-        Connection conn = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
+        Connection conn = DriverManager.getConnection(DBMS_CONN_STRING,DBMS_USERNAME, DBMS_PASSWORD);
         try (CallableStatement statement = conn.prepareCall("{call enter_person(?,?,?,?,?,?,?)}")) {
             statement.setString("new_first_name", person.getFirstName());
             statement.setString("new_middle_name", person.getMiddleName());
@@ -50,6 +50,8 @@ public class MySQLPersonStorage implements PersonStorage {
                 ins.enterSocialInsurance(rec, newPersonId);
             }
             return newPersonId;
+        } finally {
+            conn.close();
         }
     }
 
@@ -60,6 +62,8 @@ public class MySQLPersonStorage implements PersonStorage {
             statement.setInt(1, addressID);
             statement.setInt(2, personID);
             statement.execute();
+        } finally {
+            conn.close();
         }
     }
 

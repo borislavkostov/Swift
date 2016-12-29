@@ -10,7 +10,7 @@ import address.Address;
 
 public class MySqlAddressStorage implements AddressStorage {
 
-    final String DBMS_CONN_STRING = "jdbc:mysql://localhost:3306/PersonCharacteristicsDB";
+    final String DBMS_CONN_STRING = "jdbc:mysql://localhost:3306/PersonCharacteristicsDB?useUnicode=true&characterEncoding=UTF-8";
     final String DBMS_USERNAME = "root";
     final String DBMS_PASSWORD = "173173";
 
@@ -23,8 +23,11 @@ public class MySqlAddressStorage implements AddressStorage {
             statement.execute();
             Integer newId = statement.getInt("new_id");
             return newId;
+        } finally {
+            conn.close();
         }
     }
+
     public int insertAddress(Address adr) throws SQLException {
         Connection conn = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
         try (CallableStatement statement = conn.prepareCall("{call set_address(?,?,?,?,?,?,?,?,?)}")) {
@@ -40,6 +43,8 @@ public class MySqlAddressStorage implements AddressStorage {
             statement.execute();
             Integer newId = statement.getInt("new_id");
             return newId;
+        } finally {
+            conn.close();
         }
     }
 
@@ -54,6 +59,8 @@ public class MySqlAddressStorage implements AddressStorage {
             statement.setString("new_street", adr.getStreet());
             statement.setString("new_number", adr.getNumber());
             statement.execute();
+        } finally {
+            conn.close();
         }
     }
 }
