@@ -9,4 +9,6 @@ public interface AddressStorage {
     public int insertAddress(Address adr) throws Exception;
 
     public void insertSmallAddress(Address adr) throws Exception;
+
+    public Address pullAddress(int id) throws Exception;
 }
