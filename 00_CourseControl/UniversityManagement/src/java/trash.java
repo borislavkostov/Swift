@@ -11,7 +11,7 @@ public class trash {
          MySQLPersonStorage per = new MySQLPersonStorage();
               Citizen  person = per.pullPerson(58);
               a = person.toString();
-              System.out.println(person.toString());
+              System.out.println(person.getAddress().toString());
         }catch(SQLException e){
             
         }System.out.println(a);
