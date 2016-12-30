@@ -26,7 +26,7 @@ public class MySQLPersonStorage implements PersonStorage {
         MySqlAddressStorage adr = new MySqlAddressStorage();
         MySQLEducationStorage edu = new MySQLEducationStorage();
         MySQLSocialInsuranceStorage ins = new MySQLSocialInsuranceStorage();
-        Connection conn = DriverManager.getConnection(DBMS_CONN_STRING,DBMS_USERNAME, DBMS_PASSWORD);
+        Connection conn = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
         try (CallableStatement statement = conn.prepareCall("{call enter_person(?,?,?,?,?,?,?)}")) {
             statement.setString("new_first_name", person.getFirstName());
             statement.setString("new_middle_name", person.getMiddleName());
@@ -63,6 +63,37 @@ public class MySQLPersonStorage implements PersonStorage {
             statement.setInt(2, personID);
             statement.execute();
         } finally {
+            conn.close();
+        }
+    }
+
+    @Override
+    public Citizen pullPerson(int id) throws SQLException {
+        Connection conn = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
+        Citizen Person = null;
+        try (CallableStatement statement = conn.prepareCall("{call pull_person(?,?,?,?,?,?,?)}")) {
+            statement.setInt("new_id",id);
+            statement.registerOutParameter("new_first_name", Types.VARCHAR);
+            statement.registerOutParameter("new_middle_name", Types.VARCHAR);
+            statement.registerOutParameter("new_last_name", Types.VARCHAR);
+            statement.registerOutParameter("new_gender", Types.VARCHAR);
+            statement.registerOutParameter("new_height", Types.INTEGER);
+            statement.registerOutParameter("new_date_of_birth", Types.DATE);
+            statement.executeUpdate();
+            String firstName = statement.getString("new_first_name");
+            String middleName = statement.getString("new_middle_name");
+            String lastName = statement.getString("new_last_name");
+            String gender = statement.getString("new_gender");
+            int height = statement.getInt("new_height");
+            LocalDate dateOfBirth = statement.getDate("new_date_of_birth").toLocalDate();
+            if (gender.equals("Male")) {
+                Person = new Citizen(firstName, middleName, lastName, Gender.Male, height, dateOfBirth);
+            } else {
+                Person = new Citizen(firstName, middleName, lastName, Gender.Female, height, dateOfBirth);
+            }
+            
+            return Person;
+        } finally{
             conn.close();
         }
     }
