@@ -13,8 +13,11 @@
     <body>
         <form  action="ShowInfo.jsp" method="POST">
             <p>Enter Person ID</p>
-            <input type="text" name="id" size="10" />
+            <input type="text" name="id" size="10" placeholder="Person ID..." />
             <input type="submit" value="Search" name="SearchIDButton" />
+        </form>
+        <form action="EnterPerson.jsp">
+            <input type="submit" value="Enter Person" />
         </form>
     </body>
 </html>

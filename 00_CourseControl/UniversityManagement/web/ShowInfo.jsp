@@ -21,7 +21,7 @@
 <html>
     <head><style>
         th,td{border: 2px inset dodgerblue;}
-        td {width:200px;height: 100px;text-align: left;padding: 5px;font-family: "Times New Roman", Times, serif;}
+        td {width:160px;height:80px;text-align: left;padding: 5px;font-family: "Times New Roman", Times, serif;}
         </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>University Management</title>
@@ -32,7 +32,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>Person info:</br><%
+                    <td><%
                         Class.forName("com.mysql.jdbc.Driver");
                         try {
                             MySQL.MySQLPersonStorage per = new MySQL.MySQLPersonStorage();
@@ -41,7 +41,7 @@
                         <%} catch (java.sql.SQLException e) {%>
                         <p><%out.print(e.toString());%></p>
                         <%}%></td>
-                    <td>ADDRESS:<br><%Class.forName("com.mysql.jdbc.Driver");
+                    <td><%Class.forName("com.mysql.jdbc.Driver");
                         try {
                             MySqlAddressStorage adr = new MySqlAddressStorage();%>
                         <p><%=adr.pullAddress(id).toString()%><p>
