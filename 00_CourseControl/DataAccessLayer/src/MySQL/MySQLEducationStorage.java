@@ -102,14 +102,4 @@ public class MySQLEducationStorage implements EducationStorage {
         return edu;
     }
 
-    @Override
-    public void updateEducationCode(int id, String code) throws SQLException {
-        try (Connection conn = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);) {
-            Statement statement = conn.createStatement();
-            statement.execute("Update Education Set education_code ='" + code + "' Where id =" + id);
-            statement.close();
-            conn.close();
-        }
-
-    }
 }

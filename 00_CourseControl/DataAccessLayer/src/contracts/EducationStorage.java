@@ -9,5 +9,4 @@ public interface EducationStorage {
 
     public List<Education> pullEducation(int id) throws Exception;
 
-    public  void updateEducationCode(int personID,String code)throws Exception;
 }
