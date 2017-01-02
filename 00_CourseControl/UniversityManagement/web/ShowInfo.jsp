@@ -56,7 +56,9 @@
                             MySQLEducationStorage edu = new MySQLEducationStorage();
                             for (Education education : edu.pullEducation(id)) {%>
                     <td><%=education.getInstitutionName()%></br>
-                        <%=education.getEnrollmentDate()%>-<%=education.getGraduationDate()%></td>
+                        <%=education.getEnrollmentDate()%>-<%=education.getGraduationDate()%></br>
+                        <%=education.getDegree()%>
+                    </td>
                     <%}
                         } catch (SQLException e) {
                         }%>
