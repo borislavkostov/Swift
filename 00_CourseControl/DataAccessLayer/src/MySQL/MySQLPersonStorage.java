@@ -48,15 +48,6 @@ public class MySQLPersonStorage implements PersonStorage {
             this.enterAddressID(newPersonId, address_id);
             for (Education education : person.getEducations()) {//Here we are aadding records for education of student
                 edu.insertEducation(education, newPersonId);
-                if (education instanceof PrimaryEducation) {
-                    edu.updateEducationCode(newPersonId, "P");
-                } else if (education.getDegree() == EducationDegree.Master) {
-                    edu.updateEducationCode(newPersonId, "M");
-                } else if (education.getDegree() == EducationDegree.Doctorate) {
-                    edu.updateEducationCode(newPersonId, "D");
-                } else {
-                    edu.updateEducationCode(newPersonId, "M");
-                }
             }
             for (SocialInsuranceRecord rec : person.getSocialInsuranceRecords()) {//Here we are adding recorrds for social insurance
                 ins.enterSocialInsurance(rec, newPersonId);
