@@ -22,6 +22,10 @@ public class MySQLSocialInsuranceStorage implements SocialInsuranceStorage {
             statement.setDouble("new_amount", ins.getAmount());
             statement.setInt("new_person_id", person_id);
             statement.execute();
+            statement.close();
+        }
+        finally{
+            conn.close();
         }
 
     }

@@ -13,6 +13,9 @@ import personaldetails.Citizen;
 import personaldetails.Gender;
 import address.Address;
 import education.Education;
+import education.EducationDegree;
+import education.HigherEducation;
+import education.PrimaryEducation;
 import insurance.SocialInsuranceRecord;
 
 public class MySQLPersonStorage implements PersonStorage {
@@ -45,10 +48,20 @@ public class MySQLPersonStorage implements PersonStorage {
             this.enterAddressID(newPersonId, address_id);
             for (Education education : person.getEducations()) {//Here we are aadding records for education of student
                 edu.insertEducation(education, newPersonId);
+                if (education instanceof PrimaryEducation) {
+                    edu.updateEducationCode(newPersonId, "P");
+                } else if (education.getDegree() == EducationDegree.Master) {
+                    edu.updateEducationCode(newPersonId, "M");
+                } else if (education.getDegree() == EducationDegree.Doctorate) {
+                    edu.updateEducationCode(newPersonId, "D");
+                } else {
+                    edu.updateEducationCode(newPersonId, "M");
+                }
             }
             for (SocialInsuranceRecord rec : person.getSocialInsuranceRecords()) {//Here we are adding recorrds for social insurance
                 ins.enterSocialInsurance(rec, newPersonId);
             }
+            statement.close();
             return newPersonId;
         } finally {
             conn.close();
@@ -62,6 +75,7 @@ public class MySQLPersonStorage implements PersonStorage {
             statement.setInt(1, addressID);
             statement.setInt(2, personID);
             statement.execute();
+            statement.close();
         } finally {
             conn.close();
         }
@@ -72,7 +86,7 @@ public class MySQLPersonStorage implements PersonStorage {
         Connection conn = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
         Citizen Person = null;
         try (CallableStatement statement = conn.prepareCall("{call pull_person(?,?,?,?,?,?,?)}")) {
-            statement.setInt("new_id",id);
+            statement.setInt("new_id", id);
             statement.registerOutParameter("new_first_name", Types.VARCHAR);
             statement.registerOutParameter("new_middle_name", Types.VARCHAR);
             statement.registerOutParameter("new_last_name", Types.VARCHAR);
@@ -91,9 +105,10 @@ public class MySQLPersonStorage implements PersonStorage {
             } else {
                 Person = new Citizen(firstName, middleName, lastName, Gender.Female, height, dateOfBirth);
             }
-            
+            //MySqlAddressStorage adr = new MySqlAddressStorage();
+            //Person.setAddress(adr.pullAddress(id));
             return Person;
-        } finally{
+        } finally {
             conn.close();
         }
     }

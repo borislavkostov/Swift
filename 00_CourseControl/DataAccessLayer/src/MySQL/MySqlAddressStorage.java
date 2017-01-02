@@ -63,4 +63,41 @@ public class MySqlAddressStorage implements AddressStorage {
             conn.close();
         }
     }
+
+    @Override
+    public Address pullAddress(int id) throws SQLException {
+        Address adr;
+        Connection conn = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
+        try (CallableStatement statement = conn.prepareCall("{call pull_address(?,?,?,?,?,?,?,?,?)}")) {
+             statement.registerOutParameter("new_country",Types.VARCHAR);
+             statement.registerOutParameter("new_city",Types.VARCHAR);
+             statement.registerOutParameter("new_municipality",Types.VARCHAR);
+             statement.registerOutParameter("new_postalcode",Types.VARCHAR);
+             statement.registerOutParameter("new_street",Types.VARCHAR);
+             statement.registerOutParameter("new_number",Types.VARCHAR);
+             statement.registerOutParameter("new_floor",Types.INTEGER);
+             statement.registerOutParameter("new_apartment_no",Types.INTEGER);
+             statement.setInt("new_id",id);
+             statement.execute();
+             String country = statement.getString("new_country");
+             String city = statement.getString("new_city");
+             String municipality = statement.getString("new_municipality");
+             String postalCode = statement.getString("new_postalcode");
+             String street = statement.getString("new_street");
+             String number = statement.getString("new_number");
+             int floor = statement.getInt("new_floor");
+             int apartmentNo = statement.getInt("new_apartment_no");
+             if(floor==0){
+                 adr = new Address(country,city,municipality,postalCode,street,number);
+             }else{
+                 adr = new Address(country,city,municipality,postalCode,street,number,floor,apartmentNo);
+             }
+             statement.close();
+        }
+        finally {
+            conn.close();
+        }
+        return adr;
+    }
+    
 }
