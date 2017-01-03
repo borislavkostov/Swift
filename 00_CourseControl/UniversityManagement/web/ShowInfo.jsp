@@ -45,10 +45,12 @@
                         try {
                             MySqlAddressStorage adr = new MySqlAddressStorage();%>
                         <p><%=adr.pullAddress(id).toString()%><p>
-                            <%} catch (SQLException e) {
-
-                                }
-                            %></td>
+                            <%} catch (SQLException e) {}%>
+                    </td>
+                    <td><form action="index.jsp">
+                            <p>Can you take social assistance</p>
+                            <INPUT TYPE="button" onClick="history.go(0)" VALUE="Check">
+                        </form></td>
                 </tr>
                 <tr>
                     <%Class.forName("com.mysql.jdbc.Driver");
