@@ -39,7 +39,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Enter Person</title>
     </head>
-    <body>       
+    <body background='http://carbon.outreach.psu.edu/wp-content/uploads/2015/07/background-final.jpg'>       
         <form name="EnterPerson" action="EnterPerson.jsp">
             <p>First Name</p>
             <input type="text" name="firstName" value="" />
