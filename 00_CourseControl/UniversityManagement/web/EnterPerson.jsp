@@ -12,7 +12,7 @@
 <%@page import="java.time.LocalDate"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%
+<% 
     if (request.getParameter("id") != null) {
     Citizen person;
     String firstName = request.getParameter("firstName");
@@ -39,7 +39,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Enter Person</title>
     </head>
-    <body>
+    <body>       
         <form name="EnterPerson" action="EnterPerson.jsp">
             <p>First Name</p>
             <input type="text" name="firstName" value="" />
