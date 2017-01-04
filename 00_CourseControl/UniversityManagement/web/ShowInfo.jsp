@@ -57,7 +57,7 @@
                         </td>
                         <td><form action="index.jsp">
                                 <p>Can you take social assistance</p>
-                                <INPUT TYPE="button" onClick="history.go(0)" VALUE="Check">
+                                <input type="submit" name="btSocialInsurance" value="Check">
                             </form></td>
                     </tr>
                     <tr>
