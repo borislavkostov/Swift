@@ -16,7 +16,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-
 public class CitizenStorageManagerCLI {
 
     public static void main(String[] args) throws SQLException, FileNotFoundException {
@@ -24,13 +23,14 @@ public class CitizenStorageManagerCLI {
         MySQLPersonStorage personStorage = new MySQLPersonStorage();
         Scanner input = new Scanner(new File("in.txt"));
         int recordsMax = input.nextInt();
-        
-        for(int i = 0;i< recordsMax;i++){
+
+        for (int i = 0; i < recordsMax; i++) {
             System.out.println(personStorage.enterPerson(enterPerson(input)));
         }
 
     }
-public static Citizen enterPerson(Scanner input) {
+
+    public static Citizen enterPerson(Scanner input) {
         input.useDelimiter("\\n");
         Citizen person;
         String[] info = input.next().split(";", -1);
@@ -73,7 +73,7 @@ public static Citizen enterPerson(Scanner input) {
                 if (graduationDate.isBefore(LocalDate.now())) {
                     i++;
                 }
-            } else {
+            } else if (info[i].equals("D")) {
                 String institutionName = info[++i];
                 LocalDate enrollmentDate = LocalDate.parse(info[++i], formatter);
                 LocalDate graduationDate = LocalDate.parse(info[++i], formatter);
@@ -81,16 +81,24 @@ public static Citizen enterPerson(Scanner input) {
                 if (graduationDate.isBefore(LocalDate.now())) {
                     i++;
                 }
+            } else if (info[i].equals("S")) {
+                String institutionName = info[++i];
+                LocalDate enrollmentDate = LocalDate.parse(info[++i], formatter);
+                LocalDate graduationDate = LocalDate.parse(info[++i], formatter);
+                edu = new SecondaryEducation(institutionName, enrollmentDate, graduationDate);
+                if (graduationDate.isBefore(LocalDate.now())) {
+                    i++;
+                }
             }
             person.addEducation(edu);//Here we are adding Education in person
         }
         for (int i = 0; i < insurance.length; i++) {
-            int year =  Integer.parseInt(insurance[i]);
+            int year = Integer.parseInt(insurance[i]);
             int month = Integer.parseInt(insurance[++i]);
             double amount = Double.parseDouble(insurance[++i]);
-            SocialInsuranceRecord soc = new SocialInsuranceRecord(year,month,amount);
+            SocialInsuranceRecord soc = new SocialInsuranceRecord(year, month, amount);
             person.addSocialInsuranceRecord(soc);
-            
+
         }
         return person;
     }
@@ -112,6 +120,5 @@ public static Citizen enterPerson(Scanner input) {
         }
         return adr;
     }
-
 
 }
