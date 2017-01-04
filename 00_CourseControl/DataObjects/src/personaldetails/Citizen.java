@@ -46,6 +46,14 @@ public final class Citizen {
         _socialInsuranceRecords = new ArrayList<>();
     }
 
+    public void setEducations(List<Education> _educations) {
+        this._educations = _educations;
+    }
+
+    public void setSocialInsuranceRecords(List<SocialInsuranceRecord> _socialInsuranceRecords) {
+        this._socialInsuranceRecords = _socialInsuranceRecords;
+    }
+
     public short getAge() {
         return (short) _dateOfBirth.until(LocalDate.now(), ChronoUnit.YEARS);
     }
