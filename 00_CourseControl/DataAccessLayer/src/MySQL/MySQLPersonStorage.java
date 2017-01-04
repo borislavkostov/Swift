@@ -96,8 +96,13 @@ public class MySQLPersonStorage implements PersonStorage {
             } else {
                 Person = new Citizen(firstName, middleName, lastName, Gender.Female, height, dateOfBirth);
             }
-            //MySqlAddressStorage adr = new MySqlAddressStorage();
-            //Person.setAddress(adr.pullAddress(id));
+            MySqlAddressStorage adr = new MySqlAddressStorage();
+            Person.setAddress(adr.pullAddress(id));
+            MySQLEducationStorage edu = new MySQLEducationStorage();
+            MySQLSocialInsuranceStorage ins = new MySQLSocialInsuranceStorage();
+            Person.setSocialInsuranceRecords(ins.pullSocialInsurance(id));
+            Person.setEducations(edu.pullEducation(id));
+            statement.close();
             return Person;
         } finally {
             conn.close();

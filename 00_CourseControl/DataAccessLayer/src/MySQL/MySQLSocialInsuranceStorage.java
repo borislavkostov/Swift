@@ -5,7 +5,11 @@ import insurance.SocialInsuranceRecord;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MySQLSocialInsuranceStorage implements SocialInsuranceStorage {
 
@@ -29,5 +33,26 @@ public class MySQLSocialInsuranceStorage implements SocialInsuranceStorage {
         }
 
     }
+
+    @Override
+    public List<SocialInsuranceRecord> pullSocialInsurance(int personID) throws SQLException {
+       List<SocialInsuranceRecord> soc = new ArrayList<>();
+       try (Connection conn = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);) {
+           Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT year,month,amount FROM social_insurance WHERE person_id="+personID);
+            while(rs.next()){
+                int year = rs.getInt("year");
+                int month = rs.getInt("month");
+                double amount = rs.getDouble("amount");
+                soc.add(new SocialInsuranceRecord(year,month,amount));
+            }
+           
+           statement.close();
+           rs.close();
+           conn.close();
+       }
+       return soc;
+    }
+    
 
 }
