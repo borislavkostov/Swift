@@ -3,6 +3,7 @@
 
 --%>
 
+<%@page import="personaldetails.Citizen"%>
 <%@page import="MySQL.MySQLEducationStorage"%>
 <%@page import="java.io.IOException"%>
 <%@page import="MySQL.MySqlAddressStorage"%>
@@ -13,15 +14,25 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%!int id = 0;%>
+<%!Citizen person = null;%>
 <%
     if (request.getParameter("id") != null) {
         id = Integer.parseInt(request.getParameter("id"));
     }
 %>
+<%
+    Class.forName("com.mysql.jdbc.Driver");
+    try {
+        MySQL.MySQLPersonStorage per = new MySQL.MySQLPersonStorage();
+        person = per.pullPerson(id);
+    } catch (SQLException e) {
+
+    }%>
+
 <html>
     <head><style>
             th,td{border: 2px inset dodgerblue;}
-            td {width:160px;height:80px;text-align: left;padding: 5px;font-family: "Times New Roman", Times, serif;}
+            td {width:200px;height:100px;text-align: left;padding: 5px;font-family: "Times New Roman", Times, serif;}
             div{width: 50%;margin: 10% auto; }
         </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -35,21 +46,14 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><%
-                            Class.forName("com.mysql.jdbc.Driver");
-                            try {
-                                MySQL.MySQLPersonStorage per = new MySQL.MySQLPersonStorage();
-                                personaldetails.Citizen person = per.pullPerson(id);%>
-                            <p><%out.print(person.toString());%></p>
-                            <%} catch (java.sql.SQLException e) {%>
-                            <p><%out.print(e.toString());%></p>
-                            <%}%></td>
-                        <td><%Class.forName("com.mysql.jdbc.Driver");
-                            try {
-                                MySqlAddressStorage adr = new MySqlAddressStorage();%>
-                            <p><%=adr.pullAddress(id).toString()%><p>
-                                <%} catch (SQLException e) {
-                                }%>
+                        <td>
+                            <p>Name: <%=person.getFirstName()%> <%=person.getMiddleName()%> <%=person.getLastName()%></br>
+                                Date of birth: <%=person.getDateOfBirth()%></br>
+                                Years: <%=person.getAge()%></br>
+                                Height: <%=person.getHeight()%>cm</p>
+                        </td>
+                        <td>
+                            <p><%=person.getAddress()%></p>
                         </td>
                         <td><form action="index.jsp">
                                 <p>Can you take social assistance</p>
@@ -57,17 +61,13 @@
                             </form></td>
                     </tr>
                     <tr>
-                        <%Class.forName("com.mysql.jdbc.Driver");
-                            try {
-                                MySQLEducationStorage edu = new MySQLEducationStorage();
-                                for (Education education : edu.pullEducation(id)) {%>
+                        <%
+                            for (Education education : person.getEducations()) {%>
                         <td><%=education.getInstitutionName()%></br>
                             <%=education.getEnrollmentDate()%>-<%=education.getGraduationDate()%></br>
                             <%=education.getDegree()%>
                         </td>
-                        <%}
-                            } catch (SQLException e) {
-                            }%>
+                        <%}%>
                     </tr>
                 </tbody>
             </table>

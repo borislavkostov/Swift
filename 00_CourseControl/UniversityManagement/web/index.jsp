@@ -7,7 +7,7 @@
             p { font-family: "Times New Roman", Times, serif;font-weight: bold;font-variant: small-caps;}
             input {font-family: "Times New Roman", Times, serif;font-weight: bold;font-variant: small-caps;}
             form {margin: 0 auto;width: auto}
-            div{width: 50%;margin: 10% auto; }
+            div{width: 25%;margin: 10% auto; }
         </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Enter ID</title>
