@@ -60,7 +60,7 @@
                 <input type="text" name="height" value="" placeholder="178" />
                 <p>Date of Birth</p>
                 <input type="text" name="dateOfBirth" value="" placeholder="2.10.1993" />
-                <input type="submit" name="submit"  />
+                <input type="submit" name="submit"/>
             </form>
         </div>>
     </body>
