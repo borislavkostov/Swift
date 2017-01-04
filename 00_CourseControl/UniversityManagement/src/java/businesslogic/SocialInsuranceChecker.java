@@ -9,9 +9,9 @@ import personaldetails.Citizen;
 
 public class SocialInsuranceChecker {
 
-    public static boolean check(HttpServletRequest request, Citizen person) {
+    public static boolean check(String param, Citizen person) {
         boolean isChecked = false;
-        if (request.getParameter("btSocialInsurance") != null) {
+        if (param!=null) {
             isChecked = true;
         }
         for (Education education : person.getEducations()) {
@@ -35,18 +35,30 @@ public class SocialInsuranceChecker {
         for (SocialInsuranceRecord soc : person.getSocialInsuranceRecords()) {
             if (soc.getYear() == Calendar.getInstance().get(Calendar.YEAR)) {
                 if (soc.getMonth() == Calendar.getInstance().get(Calendar.MONTH) || soc.getMonth() == Calendar.getInstance().get(Calendar.MONTH - 1) || soc.getMonth() == Calendar.getInstance().get(Calendar.MONTH - 2)) {
-                    isChecked=true;
+                    isChecked = true;
                     break;
                 }
-            }else{
-                isChecked=false;
+            } else {
+                isChecked = false;
             }
         }
         return isChecked;
     }
-    public void SocialInsurance(boolean check,Citizen person){
-        if(check==true){
-            
+
+    public static double SocialInsurance(boolean check, Citizen person) {
+        double avarage=0;
+        if (check == true) {
+            int i = 0;
+            double sum = 0;
+            for (SocialInsuranceRecord soc : person.getSocialInsuranceRecords()) {
+                if (soc.getMonth() + soc.getYear() > Calendar.getInstance().get(Calendar.MONTH) + Calendar.getInstance().get(Calendar.YEAR) || soc.getMonth() + soc.getYear() < Calendar.getInstance().get(Calendar.MONTH) + Calendar.getInstance().get(Calendar.YEAR)) {
+                    i++;
+                    sum=soc.getAmount();
+                }
+
+            }
+            avarage = sum/i;
         }
+        return avarage;
     }
 }

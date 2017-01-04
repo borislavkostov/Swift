@@ -13,9 +13,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-    if (request.getParameter("id") != null) {
+    if (request.getParameter("submit") != null) {
         Citizen person;
         String firstName = request.getParameter("firstName");
+
         String middleName = request.getParameter("midlleName");
         String lastName = request.getParameter("lastName");
         int height = Integer.parseInt(request.getParameter("height"));
@@ -26,12 +27,14 @@
         } else {
             person = new Citizen(firstName, middleName, lastName, Gender.Male, height, dateOfBirth);
         }
-        MySQLPersonStorage personStorage = new MySQLPersonStorage();
 
+        Class.forName("com.mysql.jdbc.Driver");
         try {
+            MySQLPersonStorage personStorage = new MySQLPersonStorage();
             personStorage.enterPerson(person);
         } catch (SQLException e) {
         }
+        //response.sendRedirect("index.jsp");
     }
 %>
 <html>
@@ -44,7 +47,7 @@
     </head>
     <body background='http://carbon.outreach.psu.edu/wp-content/uploads/2015/07/background-final.jpg'>       
         <div>
-            <form name="EnterPerson" action="EnterPerson.jsp">
+            <form action="EnterPerson.jsp" method="POST">
                 <p>First Name</p>
                 <input type="text" name="firstName" value="" />
                 <p>Middle Name</p>
@@ -57,7 +60,7 @@
                 <input type="text" name="height" value="" placeholder="178" />
                 <p>Date of Birth</p>
                 <input type="text" name="dateOfBirth" value="" placeholder="2.10.1993" />
-                <input type="submit" value="Enter Person" />
+                <input type="submit" name="submit"  />
             </form>
         </div>>
     </body>

@@ -3,6 +3,7 @@
 
 --%>
 
+<%@page import="businesslogic.SocialInsuranceChecker"%>
 <%@page import="personaldetails.Citizen"%>
 <%@page import="MySQL.MySQLEducationStorage"%>
 <%@page import="java.io.IOException"%>
@@ -55,9 +56,14 @@
                         <td>
                             <p><%=person.getAddress()%></p>
                         </td>
-                        <td><form action="index.jsp">
+                        <td><form action="ShowInfo.jsp">
                                 <p>Can you take social assistance</p>
                                 <input type="submit" name="btSocialInsurance" value="Check">
+                                <% boolean check=SocialInsuranceChecker.check(request.getParameter("btSocialInsurance"), person);
+                                    if(SocialInsuranceChecker.SocialInsurance(check, person)!=0){%>
+                                    <p><%=SocialInsuranceChecker.SocialInsurance(check, person)%></p>
+                                    <%}
+                                %>
                             </form></td>
                     </tr>
                     <tr>
