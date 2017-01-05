@@ -3,6 +3,8 @@ package businesslogic;
 import education.Education;
 import education.EducationDegree;
 import insurance.SocialInsuranceRecord;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import javax.servlet.http.HttpServletRequest;
 import personaldetails.Citizen;
@@ -11,7 +13,7 @@ public class SocialInsuranceChecker {
 
     public static boolean check(String param, Citizen person) {
         boolean isChecked = false;
-        if (param!=null) {
+        if (param != null) {
             isChecked = true;
         }
         for (Education education : person.getEducations()) {
@@ -46,18 +48,18 @@ public class SocialInsuranceChecker {
     }
 
     public static double SocialInsurance(boolean check, Citizen person) {
-        double avarage=0;
+        double avarage = 0;
         if (check == true) {
             int i = 0;
             double sum = 0;
             for (SocialInsuranceRecord soc : person.getSocialInsuranceRecords()) {
                 if (soc.getMonth() + soc.getYear() > Calendar.getInstance().get(Calendar.MONTH) + Calendar.getInstance().get(Calendar.YEAR) || soc.getMonth() + soc.getYear() < Calendar.getInstance().get(Calendar.MONTH) + Calendar.getInstance().get(Calendar.YEAR)) {
                     i++;
-                    sum=soc.getAmount();
+                    sum = soc.getAmount();
                 }
 
             }
-            avarage = sum/i;
+            avarage = sum / i;
         }
         return avarage;
     }
