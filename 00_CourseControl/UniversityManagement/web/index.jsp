@@ -1,4 +1,7 @@
 
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="MySQL.MySQLPersonStorage"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,7 +22,7 @@
                 <input type="text" name="id" size="10" placeholder="Person ID..." />
                 <input type="submit" value="Search" name="SearchIDButton" />
             </form>  
-            <form action="EnterPerson.jsp"style ='float: left; padding: 1px;'>
+            <form action="EnterPerson.jsp" style ='float: left; padding: 1px;'>
                 <input type="submit" value="Enter Person" />
             </form>
         </div>

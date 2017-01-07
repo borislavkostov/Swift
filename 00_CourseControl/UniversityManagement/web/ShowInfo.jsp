@@ -1,14 +1,10 @@
-<%-- 
-    Document   : index
 
---%>
 
 <%@page import="businesslogic.SocialInsuranceChecker"%>
 <%@page import="personaldetails.Citizen"%>
 <%@page import="MySQL.MySQLEducationStorage"%>
 <%@page import="java.io.IOException"%>
 <%@page import="MySQL.MySqlAddressStorage"%>
-<%@page import="java.sql.SQLException"%>
 <%@page import="javax.servlet.http.*"%>
 <%@page import="javax.servlet.*"%>
 <%@page import="education.Education"%>
@@ -23,13 +19,12 @@
 %>
 <%
     Class.forName("com.mysql.jdbc.Driver");
-    try {
-        MySQL.MySQLPersonStorage per = new MySQL.MySQLPersonStorage();
-        person = per.pullPerson(id);
-    } catch (SQLException e) {
-
-    }%>
-
+    String DBMS_CONN_STRING = "jdbc:mysql://localhost:3306/PersonCharacteristicsDB?useUnicode=true&characterEncoding=UTF-8";
+    String DBMS_USERNAME = "root";
+    String DBMS_PASSWORD = "173173";
+    MySQL.MySQLPersonStorage per = new MySQL.MySQLPersonStorage(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
+    person = per.pullPerson(id);
+%>
 <html>
     <head><style>
             th,td{border: 2px inset dodgerblue;}
@@ -41,9 +36,9 @@
     </head>
     <body background='http://carbon.outreach.psu.edu/wp-content/uploads/2015/07/background-final.jpg'>
         <div>
-            <table   class = "PersonalInfoTable">
+            <table >
                 <thead>
-                <p>Personal information</p>
+                    Personal information
                 </thead>
                 <tbody>
                     <tr>
@@ -59,11 +54,10 @@
                         <td><form action="ShowInfo.jsp">
                                 <p>Can you take social assistance</p>
                                 <input type="submit" name="btSocialInsurance" value="Check">
-                                <% boolean check=SocialInsuranceChecker.check(request.getParameter("btSocialInsurance"), person);
-                                    if(SocialInsuranceChecker.SocialInsurance(check, person)!=0){%>
-                                    <p><%=SocialInsuranceChecker.SocialInsurance(check, person)%></p>
-                                    <%}
-                                %>
+                                <% boolean check = SocialInsuranceChecker.check(request.getParameter("btSocialInsurance"), person);
+                                    if (SocialInsuranceChecker.SocialInsurance(check, person) != 0) {%>
+                                <p><%=SocialInsuranceChecker.SocialInsurance(check, person)%></p>
+                                <%}%>
                             </form></td>
                     </tr>
                     <tr>
@@ -78,7 +72,5 @@
                 </tbody>
             </table>
         </div>
-
-
     </body>
 </html>
