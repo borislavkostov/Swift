@@ -10,9 +10,16 @@ import address.Address;
 
 public class MySqlAddressStorage implements AddressStorage {
 
-    final String DBMS_CONN_STRING = "jdbc:mysql://localhost:3306/PersonCharacteristicsDB?useUnicode=true&characterEncoding=UTF-8";
-    final String DBMS_USERNAME = "root";
-    final String DBMS_PASSWORD = "173173";
+    String DBMS_CONN_STRING;
+    String DBMS_USERNAME;
+    String DBMS_PASSWORD;
+
+    public MySqlAddressStorage(String DBMS_CONN_STRING, String DBMS_USERNAME, String DBMS_PASSWORD) {
+        this.DBMS_CONN_STRING = DBMS_CONN_STRING;
+        this.DBMS_USERNAME = DBMS_USERNAME;
+        this.DBMS_PASSWORD = DBMS_PASSWORD;
+    }
+    
 
     @Override
     public int setCountry(String country) throws SQLException {
@@ -69,35 +76,34 @@ public class MySqlAddressStorage implements AddressStorage {
         Address adr;
         Connection conn = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
         try (CallableStatement statement = conn.prepareCall("{call pull_address(?,?,?,?,?,?,?,?,?)}")) {
-             statement.registerOutParameter("new_country",Types.VARCHAR);
-             statement.registerOutParameter("new_city",Types.VARCHAR);
-             statement.registerOutParameter("new_municipality",Types.VARCHAR);
-             statement.registerOutParameter("new_postalcode",Types.VARCHAR);
-             statement.registerOutParameter("new_street",Types.VARCHAR);
-             statement.registerOutParameter("new_number",Types.VARCHAR);
-             statement.registerOutParameter("new_floor",Types.INTEGER);
-             statement.registerOutParameter("new_apartment_no",Types.INTEGER);
-             statement.setInt("new_id",id);
-             statement.execute();
-             String country = statement.getString("new_country");
-             String city = statement.getString("new_city");
-             String municipality = statement.getString("new_municipality");
-             String postalCode = statement.getString("new_postalcode");
-             String street = statement.getString("new_street");
-             String number = statement.getString("new_number");
-             int floor = statement.getInt("new_floor");
-             int apartmentNo = statement.getInt("new_apartment_no");
-             if(floor==0){
-                 adr = new Address(country,city,municipality,postalCode,street,number);
-             }else{
-                 adr = new Address(country,city,municipality,postalCode,street,number,floor,apartmentNo);
-             }
-             statement.close();
-        }
-        finally {
+            statement.registerOutParameter("new_country", Types.VARCHAR);
+            statement.registerOutParameter("new_city", Types.VARCHAR);
+            statement.registerOutParameter("new_municipality", Types.VARCHAR);
+            statement.registerOutParameter("new_postalcode", Types.VARCHAR);
+            statement.registerOutParameter("new_street", Types.VARCHAR);
+            statement.registerOutParameter("new_number", Types.VARCHAR);
+            statement.registerOutParameter("new_floor", Types.INTEGER);
+            statement.registerOutParameter("new_apartment_no", Types.INTEGER);
+            statement.setInt("new_id", id);
+            statement.execute();
+            String country = statement.getString("new_country");
+            String city = statement.getString("new_city");
+            String municipality = statement.getString("new_municipality");
+            String postalCode = statement.getString("new_postalcode");
+            String street = statement.getString("new_street");
+            String number = statement.getString("new_number");
+            int floor = statement.getInt("new_floor");
+            int apartmentNo = statement.getInt("new_apartment_no");
+            if (floor == 0) {
+                adr = new Address(country, city, municipality, postalCode, street, number);
+            } else {
+                adr = new Address(country, city, municipality, postalCode, street, number, floor, apartmentNo);
+            }
+            statement.close();
+        } finally {
             conn.close();
         }
         return adr;
     }
-    
+
 }

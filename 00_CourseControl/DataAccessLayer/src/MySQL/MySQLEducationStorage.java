@@ -20,9 +20,15 @@ import java.util.List;
 
 public class MySQLEducationStorage implements EducationStorage {
 
-    final String DBMS_CONN_STRING = "jdbc:mysql://localhost:3306/PersonCharacteristicsDB?useUnicode=true&characterEncoding=UTF-8";
-    final String DBMS_USERNAME = "root";
-    final String DBMS_PASSWORD = "173173";
+    String DBMS_CONN_STRING;
+    String DBMS_USERNAME;
+    String DBMS_PASSWORD;
+
+    public MySQLEducationStorage(String DBMS_CONN_STRING, String DBMS_USERNAME, String DBMS_PASSWORD) {
+        this.DBMS_CONN_STRING = DBMS_CONN_STRING;
+        this.DBMS_USERNAME = DBMS_USERNAME;
+        this.DBMS_PASSWORD = DBMS_PASSWORD;
+    }
 
     @Override
     public void insertEducation(Education education, int personID) throws SQLException {
