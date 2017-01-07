@@ -18,14 +18,16 @@ public class MySQLSocialInsuranceStorage implements SocialInsuranceStorage {
     final String DBMS_PASSWORD = "173173";
 
     @Override
-    public void enterSocialInsurance(SocialInsuranceRecord ins, int person_id) throws SQLException {
+    public void enterSocialInsurance(List<SocialInsuranceRecord> ins, int person_id) throws SQLException {
         Connection conn = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
         try (CallableStatement statement = conn.prepareCall("{call enter_social_insurance(?,?,?,?)}")) {
-            statement.setInt("new_year", ins.getYear());
-            statement.setInt("new_month", ins.getMonth());
-            statement.setDouble("new_amount", ins.getAmount());
+          for(SocialInsuranceRecord soc : ins){
+            statement.setInt("new_year", soc.getYear());
+            statement.setInt("new_month", soc.getMonth());
+            statement.setDouble("new_amount", soc.getAmount());
             statement.setInt("new_person_id", person_id);
             statement.execute();
+          }       
             statement.close();
         }
         finally{

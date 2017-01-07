@@ -11,11 +11,7 @@ import java.sql.Types;
 import java.time.LocalDate;
 import personaldetails.Citizen;
 import personaldetails.Gender;
-import address.Address;
 import education.Education;
-import education.EducationDegree;
-import education.HigherEducation;
-import education.PrimaryEducation;
 import insurance.SocialInsuranceRecord;
 
 public class MySQLPersonStorage implements PersonStorage {
@@ -49,9 +45,8 @@ public class MySQLPersonStorage implements PersonStorage {
             for (Education education : person.getEducations()) {//Here we are aadding records for education of student
                 edu.insertEducation(education, newPersonId);
             }
-            for (SocialInsuranceRecord rec : person.getSocialInsuranceRecords()) {//Here we are adding recorrds for social insurance
-                ins.enterSocialInsurance(rec, newPersonId);
-            }
+            //Here we are adding recorrds for social insurance
+            ins.enterSocialInsurance(person.getSocialInsuranceRecords(), newPersonId);
             statement.close();
             return newPersonId;
         } finally {
