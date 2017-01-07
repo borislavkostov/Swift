@@ -27,7 +27,7 @@ public class MySQLPersonStorage implements PersonStorage {
     }
 
     @Override
-    public int enterPerson(Citizen person) throws SQLException {
+    public int enterPerson(Citizen person) throws DALException {
         MySqlAddressStorage adr = new MySqlAddressStorage(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
         MySQLEducationStorage edu = new MySQLEducationStorage(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
         MySQLSocialInsuranceStorage ins = new MySQLSocialInsuranceStorage(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
@@ -58,6 +58,8 @@ public class MySQLPersonStorage implements PersonStorage {
             statement.close();
             conn.close();
 
+        }catch(SQLException e){
+            new DALException("Problem with adding data in MySQL",e);
         } 
         return newPersonId;
     }
@@ -112,7 +114,7 @@ public class MySQLPersonStorage implements PersonStorage {
         }
         return Person;
     }
-     public void enterPersonTEST(Citizen person) throws SQLException {
+     public void enterPersonWeb(Citizen person) throws SQLException {
         int newPersonId = 0;
          MySqlAddressStorage adr = new MySqlAddressStorage(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
         try (Connection conn = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);) {

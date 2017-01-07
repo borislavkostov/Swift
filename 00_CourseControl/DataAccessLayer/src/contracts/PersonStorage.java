@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public interface PersonStorage {
 
-    public int enterPerson(Citizen person) throws SQLException;
+    public int enterPerson(Citizen person) throws DALException;
 
     public void enterAddressID(int personID, int addressID) throws Exception;
 
