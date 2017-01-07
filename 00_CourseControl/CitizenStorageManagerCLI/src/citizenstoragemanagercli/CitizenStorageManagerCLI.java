@@ -1,8 +1,9 @@
 package citizenstoragemanagercli;
 
-import java.sql.SQLException;
+import Exception.DALException;
 import address.Address;
 import MySQL.MySQLPersonStorage;
+import MySQL.MySQLRemoveDB;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import personaldetails.Citizen;
@@ -15,18 +16,19 @@ import java.util.Scanner;
 
 public class CitizenStorageManagerCLI {
 
-    public static void main(String[] args) throws SQLException, FileNotFoundException {
-
-        MySQLPersonStorage personStorage = new MySQLPersonStorage();
+    public static void main(String[] args) throws FileNotFoundException, DALException {
+        String DBMS_CONN_STRING = "jdbc:mysql://localhost:3306/PersonCharacteristicsDB?useUnicode=true&characterEncoding=UTF-8";
+        String DBMS_USERNAME = "root";
+        String DBMS_PASSWORD = "173173";
+        MySQLRemoveDB db = new MySQLRemoveDB(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
+        db.removeDataFromDB();
+        MySQLPersonStorage personStorage = new MySQLPersonStorage(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
         Scanner input = new Scanner(new File("in.txt"));
         int recordsMax = input.nextInt();
 
         for (int i = 0; i < recordsMax; i++) {
-            
             Citizen citizen = parseCitizen(input);
-            
             int id = personStorage.enterPerson(citizen);
-            
             System.out.println(id);
         }
 
