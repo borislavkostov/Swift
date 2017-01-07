@@ -1,13 +1,10 @@
 package citizenstoragemanagercli;
 
-import MySQL.MySqlAddressStorage;
 import java.sql.SQLException;
 import address.Address;
 import MySQL.MySQLPersonStorage;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.Locale;
 import personaldetails.Citizen;
 import personaldetails.Gender;
 import education.*;
@@ -25,12 +22,17 @@ public class CitizenStorageManagerCLI {
         int recordsMax = input.nextInt();
 
         for (int i = 0; i < recordsMax; i++) {
-            System.out.println(personStorage.enterPerson(enterPerson(input)));
+            
+            Citizen citizen = parseCitizen(input);
+            
+            int id = personStorage.enterPerson(citizen);
+            
+            System.out.println(id);
         }
 
     }
 
-    public static Citizen enterPerson(Scanner input) {
+    public static Citizen parseCitizen(Scanner input) {
         input.useDelimiter("\\n");
         Citizen person;
         String[] info = input.next().split(";", -1);
