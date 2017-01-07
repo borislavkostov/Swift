@@ -68,7 +68,7 @@
         MySQLPersonStorage personStorage = new MySQLPersonStorage(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
         personStorage.enterPersonTEST(person);
         }catch(SQLException e){}
-        //response.sendRedirect("index.jsp");%>
+        response.sendRedirect("index.jsp");%>
 
         <h1>Hello World!</h1>
         <%}else{%>
