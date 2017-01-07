@@ -27,7 +27,7 @@ public class MySQLPersonStorage implements PersonStorage {
     }
 
     @Override
-    public int enterPerson(Citizen person) throws DALException {
+    public int enterPerson(Citizen person) throws SQLException {
         MySqlAddressStorage adr = new MySqlAddressStorage(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
         MySQLEducationStorage edu = new MySQLEducationStorage(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
         MySQLSocialInsuranceStorage ins = new MySQLSocialInsuranceStorage(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
@@ -54,13 +54,11 @@ public class MySQLPersonStorage implements PersonStorage {
                 edu.insertEducation(education, newPersonId);
             }
             //Here we are adding recorrds for social insurance
-            //ins.enterSocialInsurance(person.getSocialInsuranceRecords(), newPersonId);
+            ins.enterSocialInsurance(person.getSocialInsuranceRecords(), newPersonId);
             statement.close();
             conn.close();
 
-        } catch (SQLException e) {
-            new DALException("Problem with enter Person", e);
-        }
+        } 
         return newPersonId;
     }
 
@@ -116,7 +114,7 @@ public class MySQLPersonStorage implements PersonStorage {
     }
      public void enterPersonTEST(Citizen person) throws SQLException {
         int newPersonId = 0;
-
+         MySqlAddressStorage adr = new MySqlAddressStorage(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
         try (Connection conn = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);) {
             CallableStatement statement = conn.prepareCall("{call enter_person(?,?,?,?,?,?,?)}");
             statement.setString("new_first_name", person.getFirstName());
@@ -132,6 +130,12 @@ public class MySQLPersonStorage implements PersonStorage {
             statement.registerOutParameter("new_id", Types.INTEGER);
             statement.execute();//we are executing enter_person procedure
             newPersonId = statement.getInt("new_id");
+            int address_id = adr.insertAddress(person.getAddress());//Here we are adding Address enter in database and getting id of the enter
+            this.enterAddressID(newPersonId, address_id);
+            MySQLEducationStorage edu = new MySQLEducationStorage(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
+            for (Education education : person.getEducations()) {//Here we are aadding records for education of student
+                edu.insertEducation(education, newPersonId);
+            }
             statement.close();
             conn.close();
         }
