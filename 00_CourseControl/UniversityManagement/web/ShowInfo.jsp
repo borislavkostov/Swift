@@ -64,7 +64,7 @@
                             <form action="ShowInfo.jsp">
                                 <% boolean check = SocialInsuranceChecker.check(request.getParameter("insurance"), person);
                                     if (check == true) {%>
-                                <p>You can get</p>
+                                <p>You can get social insurance:</p>
                                 <p><%=SocialInsuranceChecker.SocialInsurance(check, person)%></p>
                                 <%} else {%>
                                 <p>Can you take social assistance</p>

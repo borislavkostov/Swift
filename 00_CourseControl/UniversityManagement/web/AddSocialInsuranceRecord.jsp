@@ -21,12 +21,13 @@
             input {font-family: "Times New Roman", Times, serif;font-weight: bold;font-variant: small-caps;}
             table{ display: inline-block;}
             td {width:auto;height:auto;text-align: left;padding: 5px;font-family: "Times New Roman", Times, serif;}
-            form {margin: 0 auto;display: inline-block;vertical-align:top;}
+            form {display: inline-block;vertical-align:top;}
+            div{width: 500px;margin: 0 auto; }
         </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>New record</title>
     </head>
-    <body>
+    <body background='http://carbon.outreach.psu.edu/wp-content/uploads/2015/07/background-final.jpg'>
         <% try {
                 Class.forName("com.mysql.jdbc.Driver");
                 String DBMS_CONN_STRING = "jdbc:mysql://localhost:3306/PersonCharacteristicsDB?useUnicode=true&characterEncoding=UTF-8";
@@ -44,7 +45,9 @@
                     response.sendRedirect("ShowInfo.jsp");
                 }
             } catch (SQLException e) {
-            }%> 
+            }%>
+            <div>
+                <p>Social Insurances</p>
         <table border="1">
             <thead>
                 <tr>
@@ -85,5 +88,6 @@
             <input type="text" name="amount" value="" />                  
             <input type="submit" value="Enter" />
         </form>
+            </div>
     </body>
 </html>
