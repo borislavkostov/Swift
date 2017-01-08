@@ -167,9 +167,7 @@ public class MySQLPersonStorage implements PersonStorage {
             newPersonId = statement.getInt("new_id");
             int address_id = adr.insertAddress(person.getAddress());//Here we are adding Address enter in database and getting id of the enter
             this.enterAddressID(newPersonId, address_id);
-            for (Education education : person.getEducations()) {//Here we are aadding records for education of student
-                edu.insertEducation(education, newPersonId);
-            }
+            edu.insertEducations(person.getEducations(), newPersonId);//Here we are adding educations
             //Here we are adding recorrds for social insurance
             ins.enterSocialInsurance(person.getSocialInsuranceRecords(), newPersonId);
             }

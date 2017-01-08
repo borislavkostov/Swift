@@ -108,4 +108,43 @@ public class MySQLEducationStorage implements EducationStorage {
         return edu;
     }
 
+    public void insertEducations(List<Education> educations, int personID) throws SQLException {
+        try (Connection conn = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD)) {
+            CallableStatement statement = conn.prepareCall("{call insert_education(?,?,?,?,?,?)}");
+            for (Education education : educations) {
+                if (education instanceof GradedEducation) {
+                    statement.setInt("new_graduated", 1);
+                } else {
+                    statement.setInt("new_graduated", 0);
+                }
+                statement.setDate("new_enrollment_date", (Date.valueOf(education.getEnrollmentDate())));
+                statement.setDate("new_graduation_date", Date.valueOf(education.getGraduationDate()));
+                statement.setString("new_institution_name", education.getInstitutionName());
+                statement.setInt("new_person_id", personID);
+                switch (education.getDegree()) {
+                    case Primary:
+                        statement.setString("new_education_code", "P");
+                        break;
+                    case Master:
+                        statement.setString("new_education_code", "M");
+                        break;
+                    case Doctorate:
+                        statement.setString("new_education_code", "D");
+                        break;
+                    case Secondary:
+                        statement.setString("new_education_code", "S");
+                        break;
+                    case Bachelor:
+                        statement.setString("new_education_code", "B");
+                        break;
+                    default:
+                        break;
+                }
+                statement.execute();
+            }           
+            statement.close();
+            conn.close();
+        }
+    }
+
 }
