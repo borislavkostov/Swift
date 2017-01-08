@@ -61,17 +61,20 @@
                                 <input type="hidden" name="person_id" value="<%=id%>" />
                                 <input type="submit" value="Enter new insurance record" />
                             </form>
-                            <form action="ShowInfo.jsp">
-                                <% boolean check = SocialInsuranceChecker.check(request.getParameter("insurance"), person);
-                                    if (check == true) {%>
-                                <p>You can get social insurance:</p>
-                                <p><%=SocialInsuranceChecker.SocialInsurance(check, person)%></p>
-                                <%} else {%>
+                            <% if (request.getParameter("insurance") != null) {
+                                        Class.forName("com.mysql.jdbc.Driver");
+                                        if (SocialInsuranceChecker.check(person)) {%>                                        
+                            <p>Amount: <%=String.format("%.2f", SocialInsuranceChecker.sumAmount(person))%></p>
+                            <%} else {%>
+                            <p>You can't get social insurance</p>
+                            <%}
+                    }else{%>
+                            <form action="ShowInfo.jsp">                                                          
                                 <p>Can you take social assistance</p>
-                                <input type="hidden" name="insurance" value="hoho" />
+                                <input type="hidden" name="insurance" value="<%=id%>" />
                                 <input type="submit" name="btSocialInsurance" value="Check">
-                                <%}%>
                             </form></td>
+                            <%}%>
                     </tr>
                     <tr>
                         <%
