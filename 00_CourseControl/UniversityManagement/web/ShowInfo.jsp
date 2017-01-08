@@ -1,5 +1,10 @@
 
 
+<%@page import="MySQL.MySQLSocialInsuranceStorage"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="insurance.SocialInsuranceRecord"%>
+<%@page import="java.util.List"%>
 <%@page import="businesslogic.SocialInsuranceChecker"%>
 <%@page import="personaldetails.Citizen"%>
 <%@page import="MySQL.MySQLEducationStorage"%>
@@ -12,6 +17,7 @@
 <!DOCTYPE html>
 <%!int id = 0;%>
 <%!Citizen person = null;%>
+
 <%
     if (request.getParameter("id") != null) {
         id = Integer.parseInt(request.getParameter("id"));
@@ -51,12 +57,19 @@
                         <td>
                             <p><%=person.getAddress()%></p>
                         </td>
-                        <td><form action="ShowInfo.jsp">
-                                <p>Can you take social assistance</p>
-                                <input type="submit" name="btSocialInsurance" value="Check">
-                                <% boolean check = SocialInsuranceChecker.check(request.getParameter("btSocialInsurance"), person);
-                                    if (SocialInsuranceChecker.SocialInsurance(check, person) != 0) {%>
+                        <td><form action="AddSocialInsuranceRecord.jsp">
+                                <input type="hidden" name="person_id" value="<%=id%>" />
+                                <input type="submit" value="Enter new insurance record" />
+                            </form>
+                            <form action="ShowInfo.jsp">
+                                <% boolean check = SocialInsuranceChecker.check(request.getParameter("insurance"), person);
+                                    if (check == true) {%>
+                                <p>You can get</p>
                                 <p><%=SocialInsuranceChecker.SocialInsurance(check, person)%></p>
+                                <%} else {%>
+                                <p>Can you take social assistance</p>
+                                <input type="hidden" name="insurance" value="hoho" />
+                                <input type="submit" name="btSocialInsurance" value="Check">
                                 <%}%>
                             </form></td>
                     </tr>

@@ -34,16 +34,7 @@ public class SocialInsuranceChecker {
                 return isChecked;
             }
         }
-        for (SocialInsuranceRecord soc : person.getSocialInsuranceRecords()) {
-            if (soc.getYear() == Calendar.getInstance().get(Calendar.YEAR)) {
-                if (soc.getMonth() == Calendar.getInstance().get(Calendar.MONTH) || soc.getMonth() == Calendar.getInstance().get(Calendar.MONTH - 1) || soc.getMonth() == Calendar.getInstance().get(Calendar.MONTH - 2)) {
-                    isChecked = true;
-                    break;
-                }
-            } else {
-                isChecked = false;
-            }
-        }
+
         return isChecked;
     }
 
@@ -53,10 +44,8 @@ public class SocialInsuranceChecker {
             int i = 0;
             double sum = 0;
             for (SocialInsuranceRecord soc : person.getSocialInsuranceRecords()) {
-                if (soc.getMonth() + soc.getYear() > Calendar.getInstance().get(Calendar.MONTH) + Calendar.getInstance().get(Calendar.YEAR) || soc.getMonth() + soc.getYear() < Calendar.getInstance().get(Calendar.MONTH) + Calendar.getInstance().get(Calendar.YEAR)) {
-                    i++;
-                    sum = soc.getAmount();
-                }
+                i++;
+                sum = soc.getAmount();
 
             }
             avarage = sum / i;
