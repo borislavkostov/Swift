@@ -13,6 +13,7 @@ import personaldetails.Citizen;
 import personaldetails.Gender;
 import education.Education;
 import Exception.DALException;
+import java.util.List;
 
 public class MySQLPersonStorage implements PersonStorage {
 
@@ -142,4 +143,41 @@ public class MySQLPersonStorage implements PersonStorage {
             conn.close();
         }
      }
+     public void enterPerson(List<Citizen> persons) throws DALException {
+        MySqlAddressStorage adr = new MySqlAddressStorage(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
+        MySQLEducationStorage edu = new MySQLEducationStorage(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
+        MySQLSocialInsuranceStorage ins = new MySQLSocialInsuranceStorage(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
+        int newPersonId = 0;
+
+        try (Connection conn = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);) {
+            CallableStatement statement = conn.prepareCall("{call enter_person(?,?,?,?,?,?,?)}");
+            for(Citizen person:persons){
+            statement.setString("new_first_name", person.getFirstName());
+            statement.setString("new_middle_name", person.getMiddleName());
+            statement.setString("new_last_name", person.getLastName());
+            if (person.getGender() == Gender.Male) {
+                statement.setString("new_gender", "Male");
+            } else {
+                statement.setString("new_gender", "Female");
+            }
+            statement.setInt("new_height", person.getHeight());
+            statement.setDate("new_date_ofbirt", (Date.valueOf(person.getDateOfBirth())));
+            statement.registerOutParameter("new_id", Types.INTEGER);
+            statement.execute();//we are executing enter_person procedure
+            newPersonId = statement.getInt("new_id");
+            int address_id = adr.insertAddress(person.getAddress());//Here we are adding Address enter in database and getting id of the enter
+            this.enterAddressID(newPersonId, address_id);
+            for (Education education : person.getEducations()) {//Here we are aadding records for education of student
+                edu.insertEducation(education, newPersonId);
+            }
+            //Here we are adding recorrds for social insurance
+            ins.enterSocialInsurance(person.getSocialInsuranceRecords(), newPersonId);
+            }
+            statement.close();
+            conn.close();
+            
+        }catch(SQLException e){
+            new DALException("Problem with adding data in MySQL",e);
+        } 
+    }
 }
