@@ -4,6 +4,7 @@
     Author     : templars1914
 --%>
 
+<%@page import="java.util.Comparator"%>
 <%@page import="java.util.Collections"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.util.ArrayList"%>
@@ -15,6 +16,13 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <style>
+            p { font-family: "Times New Roman", Times, serif;font-weight: bold;font-variant: small-caps;}
+            input {font-family: "Times New Roman", Times, serif;font-weight: bold;font-variant: small-caps;}
+            table{ display: inline-block;}
+            td {width:auto;height:auto;text-align: left;padding: 5px;font-family: "Times New Roman", Times, serif;}
+            form {margin: 0 auto;display: inline-block;vertical-align:top;}
+        </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>New record</title>
     </head>
@@ -32,11 +40,11 @@
                     double amount = Double.parseDouble(request.getParameter("amount"));
                     socIn.add(new SocialInsuranceRecord(year, month, amount));
                     ins.enterSocialInsurance(socIn, Integer.parseInt(request.getParameter("id")));
-                    session.setAttribute("id",request.getParameter("id"));
+                    session.setAttribute("id", request.getParameter("id"));
                     response.sendRedirect("ShowInfo.jsp");
                 }
             } catch (SQLException e) {
-              }%>  
+            }%> 
         <table border="1">
             <thead>
                 <tr>
@@ -54,8 +62,8 @@
                     String DBMS_PASSWORD = "173173";
                     MySQLSocialInsuranceStorage ins = new MySQLSocialInsuranceStorage(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
                     if (request.getParameter("person_id") != null) {
-
-for (SocialInsuranceRecord soc : ins.pullSocialInsurance(Integer.parseInt(request.getParameter("person_id")))) {%>
+                        List<SocialInsuranceRecord> socRec = ins.pullSocialInsurance(Integer.parseInt(request.getParameter("person_id")));                  
+                     for (SocialInsuranceRecord soc :socRec ) {%>
                 <tr>
                     <td><%=soc.getYear()%></td>
                     <td><%=soc.getMonth()%></td>
@@ -65,8 +73,9 @@ for (SocialInsuranceRecord soc : ins.pullSocialInsurance(Integer.parseInt(reques
                     }%>
 
             </tbody>
-        </table>     
+        </table>
         <form action="AddSocialInsuranceRecord.jsp">
+            <p>Enter Social Insurance</p>
             <input type="hidden" name="id" value="<%=request.getParameter("person_id")%>" />
             <p>Year</p>
             <input type="text" name="year" value="" />
