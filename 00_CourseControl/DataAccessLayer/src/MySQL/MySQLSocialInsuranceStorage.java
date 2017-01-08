@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import Exception.DALException;
+import java.util.Comparator;
 
 public class MySQLSocialInsuranceStorage implements SocialInsuranceStorage {
 
@@ -43,21 +45,23 @@ public class MySQLSocialInsuranceStorage implements SocialInsuranceStorage {
     }
 
     @Override
-    public List<SocialInsuranceRecord> pullSocialInsurance(int personID) throws SQLException {
+    public List<SocialInsuranceRecord> pullSocialInsurance(int personID) throws DALException {
         List<SocialInsuranceRecord> soc = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);) {
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT year,month,amount FROM social_insurance WHERE person_id=" + personID);
+            ResultSet rs = statement.executeQuery("SELECT DISTINCT year,month,amount FROM social_insurance WHERE person_id=" + personID);
             while (rs.next()) {
                 int year = rs.getInt("year");
                 int month = rs.getInt("month");
                 double amount = rs.getDouble("amount");
                 soc.add(new SocialInsuranceRecord(year, month, amount));
             }
-
+             soc.sort(Comparator.comparing(SocialInsuranceRecord::getYear).thenComparing(SocialInsuranceRecord::getMonth).reversed());//This is new it's comes from JAVA 8
             statement.close();
             rs.close();
             conn.close();
+        }catch(SQLException e){
+            new DALException("Problem with pulling from db",e);
         }
         return soc;
     }
