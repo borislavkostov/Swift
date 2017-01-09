@@ -69,6 +69,7 @@
             div{width: 25%;margin: 0 auto; }
         </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="icon" href="favicon.ico" />
         <title>Enter Person</title>
     </head>
     <body background='http://carbon.outreach.psu.edu/wp-content/uploads/2015/07/background-final.jpg'>       

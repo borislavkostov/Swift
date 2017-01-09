@@ -38,6 +38,7 @@
             div{width: 50%;margin: 10% auto; }
         </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="icon" href="favicon.ico" />
         <title>University Management</title>
     </head>
     <body background='http://carbon.outreach.psu.edu/wp-content/uploads/2015/07/background-final.jpg'>
