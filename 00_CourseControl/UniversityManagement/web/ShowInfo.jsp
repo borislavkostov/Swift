@@ -92,8 +92,8 @@
             </table>
         </div>
         <%} catch (NullPointerException e) {%>
-        <div>
-        <p>There is no person with id= <%=id%></p>
+        <div style="border: 2px inset dodgerblue;">
+        <p align="center">There is no person with id= <%=id%></p>
         </div>
         <%}%>
     </body>
