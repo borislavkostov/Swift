@@ -29,7 +29,7 @@
     String DBMS_USERNAME = "root";
     String DBMS_PASSWORD = "173173";
     MySQL.MySQLPersonStorage per = new MySQL.MySQLPersonStorage(DBMS_CONN_STRING, DBMS_USERNAME, DBMS_PASSWORD);
-    person = per.pullPerson(id);
+    
 %>
 <html>
     <head><style>
@@ -42,6 +42,8 @@
         <title>University Management</title>
     </head>
     <body background='http://carbon.outreach.psu.edu/wp-content/uploads/2015/07/background-final.jpg'>
+        <%try {
+        person = per.pullPerson(id);%>
         <div>
             <table >
                 <thead>
@@ -63,13 +65,13 @@
                                 <input type="submit" value="Enter new insurance record" />
                             </form>
                             <% if (request.getParameter("insurance") != null) {
-                                        Class.forName("com.mysql.jdbc.Driver");
-                                        if (SocialInsuranceChecker.check(person)) {%>                                        
+                                    Class.forName("com.mysql.jdbc.Driver");
+                                    if (SocialInsuranceChecker.check(person)) {%>                                        
                             <p>Amount: <%=String.format("%.2f", SocialInsuranceChecker.sumAmount(person))%></p>
                             <%} else {%>
                             <p>You can't get social insurance</p>
                             <%}
-                    }else{%>
+                            } else {%>
                             <form action="ShowInfo.jsp">                                                          
                                 <p>Can you take social assistance</p>
                                 <input type="hidden" name="insurance" value="<%=id%>" />
@@ -89,5 +91,10 @@
                 </tbody>
             </table>
         </div>
+        <%} catch (NullPointerException e) {%>
+        <div>
+        <p>There is no person with id= <%=id%></p>
+        </div>
+        <%}%>
     </body>
 </html>
